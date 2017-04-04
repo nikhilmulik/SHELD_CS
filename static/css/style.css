@@ -1,0 +1,19 @@
+
+
+
+ul.track-content-list > li { display: block; height: 40px; }
+ul.track-content-list > li > div.track { float: left }
+ul.track-content-list > li > div.time { float: right }
+
+/*section.toggleSection{*/
+    /*display:none;*/
+/*}*/
+/*section.unhidden{*/
+    /*display:block;*/
+/*}*/
+.overme {
+    /*width: 277px;*/
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
+}
