@@ -17,7 +17,7 @@
     <link href="static/vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="static/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+
     <!-- bootstrap-progressbar -->
     <link href="static/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -1110,7 +1110,7 @@ img {
         	<div class="panel panel-default">
                 <div class="panel-heading top-bar">
                     <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat - Miguel</h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat Window</h3>
                     </div>
                     <div class="col-md-4 col-xs-4" style="text-align: right;">
                         <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
@@ -1120,83 +1120,20 @@ img {
                 <div class="panel-body msg_container_base">
                     <div class="row msg_container base_sent">
                         <div class="col-md-10 col-xs-10">
-                            <div class="messages msg_sent">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
+
                         </div>
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
+
                     </div>
-                    <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
-                        <div class="col-md-10 col-xs-10">
-                            <div class="messages msg_receive">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
-                        <div class="col-xs-10 col-md-10">
-                            <div class="messages msg_receive">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row msg_container base_sent">
-                        <div class="col-xs-10 col-md-10">
-                            <div class="messages msg_sent">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
-                    </div>
-                    <div class="row msg_container base_receive">
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
-                        <div class="col-xs-10 col-md-10">
-                            <div class="messages msg_receive">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row msg_container base_sent">
-                        <div class="col-md-10 col-xs-10 ">
-                            <div class="messages msg_sent">
-                                <p>that mongodb thing looks good, huh?
-                                tiny master db, and huge document store</p>
-                                <time datetime="2009-11-13T20:00">Timothy • 51 min</time>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-xs-2 avatar">
-                            <img src="http://www.bitrebels.com/wp-content/uploads/2011/02/Original-Facebook-Geek-Profile-Avatar-1.jpg" class=" img-responsive ">
-                        </div>
-                    </div>
+
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
+
+                          <input id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here..." />
                         <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm" id="btn-chat">Send</button>
+                        <button class="btn btn-primary btn-sm sendchat" id="btn-chat">Send</button>
                         </span>
+
                     </div>
                 </div>
     		</div>
@@ -1265,7 +1202,10 @@ img {
 
     <!-- Custom Theme Scripts -->
     <script src="static/build/js/custom.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
     <script>
+
       $(document).on('click', '.panel-heading span.icon_minim', function (e) {
     var $this = $(this);
     if (!$this.hasClass('panel-collapsed')) {
@@ -1296,8 +1236,38 @@ $(document).on('click', '#new_chat', function (e) {
 $(document).on('click', '.icon_close', function (e) {
     //$(this).parent().parent().parent().parent().remove();
     $( "#chat_window_1" ).remove();
-});
 
+});
+    </script>
+    <script>
+      var socket = io.connect( 'http://localhost:5000/' )
+      // broadcast a message
+      socket.on( 'connect', function() {
+        socket.emit( 'my event', {
+          data: 'User Connected'
+        } )
+         $(document).on('click', '#btn-chat', function (e){
+
+          e.preventDefault()
+          let user_input  = $( 'input.form-control' ).val()
+          let user_name = 'test_user'
+          socket.emit( 'my event', {
+            user_name : user_name,
+            message : user_input
+          } )
+          // empty the input field
+          $( 'input.form-control' ).val( '' ).focus()
+        } )
+      } )
+      // capture message
+      socket.on( 'my response', function( msg ) {
+        console.log( msg )
+        if( typeof msg.user_name !== 'undefined' )
+         {
+            var d = new Date();
+          $( 'div.col-md-10' ).append( '<div class="messages msg_sent"><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'<br><time>'+ d.toUTCString()+'</time></div><hr>' )
+        }
+      } )
     </script>
   </body>
 </html>
