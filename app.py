@@ -14,7 +14,7 @@ def cover():
 
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
-@app.route('/api/post_keylogs/', methods=['POST'])
+@app.route('/api/post_keylogs/<uid>', methods=['POST'])
 def add_message(uid):
     """
     check if valid uid, next of true
@@ -23,8 +23,8 @@ def add_message(uid):
     """
     # import pdb; pdb.set_trace()
     # content = request.json
-    print request.data
-    # print content
+    print uid
+    print request.json
     return jsonify({"uuid":uid})
 
 
