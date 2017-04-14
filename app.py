@@ -35,11 +35,8 @@ def handle_my_custom_event(json):
 
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
-<<<<<<< HEAD
+
 @app.route('/api/post_keylogs/<uid>', methods=['POST'])
-=======
-@app.route('/api/post_keylogs/', methods=['GET', 'POST'])
->>>>>>> 99f07579c35edbb20b49c2b4407806af3292d7f7
 def add_message(uid):
     """
     check if valid uid, next of true
@@ -48,19 +45,10 @@ def add_message(uid):
     """
     # import pdb; pdb.set_trace()
     # content = request.json
-<<<<<<< HEAD
     print uid
     print request.json
     return jsonify({"uuid":uid})
 
-
-
-
-=======
-    print request.data
-    # print content
-    return jsonify({"uuid": uid})
->>>>>>> 99f07579c35edbb20b49c2b4407806af3292d7f7
 
 
 if __name__ == "__main__":
