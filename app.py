@@ -24,7 +24,7 @@ socketio = SocketIO(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-conn=mysql.connector.connect(user='root', password='password', host='localhost', database='sheild')
+conn=mysql.connector.connect(user='root', password='Mysql123@#', host='localhost', database='shield')
 mycursor = conn.cursor()
 
 
