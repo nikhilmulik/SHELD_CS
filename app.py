@@ -8,6 +8,8 @@ from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from connect_db import ConnectDB
+
 import mysql.connector
 
 from decimal import *
@@ -17,6 +19,7 @@ from decimal import *
 # https://github.com/socketio/socket.io-client
 
 app = Flask(__name__)
+obj = ConnectDB()
 
 app.config['SECRET_KEY'] = 'secretKey'
 Bootstrap(app)
@@ -24,8 +27,8 @@ socketio = SocketIO(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-conn=mysql.connector.connect(user='root', password='Mysql123@#', host='localhost', database='shield')
-mycursor = conn.cursor()
+# conn=mysql.connector.connect(user='root', password='password', host='localhost', database='shield')
+# mycursor = conn.cursor()
 
 
 class LoginForm(FlaskForm):
@@ -82,13 +85,20 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user:
-            if check_password_hash(user.password, form.password.data):
-                login_user(user, remember=form.remember.data)
-                return redirect(url_for('dashboard'))
+        username = form.username.data
+        password = form.password.data
 
-        return '<h1>Invalid username or password</h1>'
+        # result = mycursor.execute("SELECT Username, Password FROM shield.login WHERE Username = %s and Password = %s", (username, password))
+        #
+        # for row in result.fetchall():
+        #     print row
+
+        result = obj.select("shield.login", {'Username': username, 'Password': password});
+        print(result)
+
+        return redirect('http://127.0.0.1:5000/dashboard')
+
+        # return '<h1>Invalid username or password</h1>'
 
     return render_template('login.html', form=form)
 
@@ -101,11 +111,11 @@ def signup():
         # email = form.email.data
         password = form.password.data
         # hashed_password = generate_password_hash(form.password.data, method='sha256')
-        try:
-            mycursor.execute("INSERT INTO sheild.login (Username, Password) VALUES (%s,%s)", (username, password))
-            conn.commit()
-        except:
-            conn.rollback()
+        # try:
+        #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
+        #     conn.commit()
+        # except:
+        #     conn.rollback()
 
         return '<h1>New user has been created!</h1>'
 
