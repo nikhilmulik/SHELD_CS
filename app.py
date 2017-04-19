@@ -2,12 +2,12 @@ from flask import Flask, jsonify, request
 from flask import render_template
 from flask_socketio import SocketIO, emit
 from flask import Flask, render_template, redirect, url_for
-from flask_bootstrap import Bootstrap
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField
-from wtforms.validators import InputRequired, Email, Length
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+# from flask_bootstrap import Bootstrap
+# from flask_wtf import FlaskForm
+# from wtforms import StringField, PasswordField, BooleanField
+# from wtforms.validators import InputRequired, Email, Length
+# from werkzeug.security import generate_password_hash, check_password_hash
+# from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from connect_db import ConnectDB
 
 import mysql.connector
@@ -22,24 +22,24 @@ app = Flask(__name__)
 obj = ConnectDB()
 
 app.config['SECRET_KEY'] = 'secretKey'
-Bootstrap(app)
+# Bootstrap(app)
 socketio = SocketIO(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'
 # conn=mysql.connector.connect(user='root', password='password', host='localhost', database='shield')
 # mycursor = conn.cursor()
 
 
-class LoginForm(FlaskForm):
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
-    remember = BooleanField('remember me')
-
-class RegisterForm(FlaskForm):
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
-    username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+# class LoginForm(FlaskForm):
+#     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+#     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+#     remember = BooleanField('remember me')
+#
+# class RegisterForm(FlaskForm):
+#     email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(max=50)])
+#     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+#     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
 
 @app.route('/')
 def cover():
@@ -80,27 +80,59 @@ def add_message(uid):
 
 # TONY's STUFF
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    form = LoginForm()
 
-    if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
+@app.route('/login')
+def login_page():
+    return render_template('login.html')
 
-        # result = mycursor.execute("SELECT Username, Password FROM shield.login WHERE Username = %s and Password = %s", (username, password))
-        #
-        # for row in result.fetchall():
-        #     print row
 
-        result = obj.select("shield.login", {'Username': username, 'Password': password});
-        print(result)
+@app.route('/api_login', methods=['GET', 'POST'])
+def login_check():
+    '''
+    you will get the user id and password here 
+    :return:
+    '''
+    result = {}
+    print '==========================================='
+    print request.args.to_dict()
+    request_data = request.args.to_dict()
 
-        return redirect('http://127.0.0.1:5000/dashboard')
+    # query = 'SELECT FirstName,LastName, Address, City, State, Country, PostalCode, Phone, Fax, Email ' \
+    #         'FROM employee WHERE Email= "'+request_data['inputPassword']+'"'
+    # db_result = obj.execute_query(query)
+    # result['db_result'] = db_result[0]
+    # if request_data['inputPassword'] == 'andrew@chinookcorp.com':
+    #     result['permission'] = 'admin'
+    # else:
+    #     result['permission'] = 'user'
+    return simplejson.dumps(result)
 
-        # return '<h1>Invalid username or password</h1>'
 
-    return render_template('login.html', form=form)
+
+
+# def login():
+#
+#
+#     # form = LoginForm()
+#
+#     # if form.validate_on_submit():
+#         # username = form.username.data
+#         # password = form.password.data
+#
+#         # result = mycursor.execute("SELECT Username, Password FROM shield.login WHERE Username = %s and Password = %s", (username, password))
+#         #
+#         # for row in result.fetchall():
+#         #     print row
+#         # import pdb; pdb.set_trace()
+#
+#         # result = obj.select("shield.login", {'Username': username, 'Password': password});
+#         # print(result)
+#
+#         # return redirect('http://127.0.0.1:5000/dashboard')
+#
+#         # return '<h1>Invalid username or password</h1>'
+#
+#     return render_template('login.html', form=form)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -123,7 +155,7 @@ def signup():
 
 
 @app.route('/logout')
-@login_required
+# @login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
