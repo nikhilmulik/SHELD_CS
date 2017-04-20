@@ -8,7 +8,7 @@ from flask import Flask, render_template, redirect, url_for
 # from wtforms.validators import InputRequired, Email, Length
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from connect_db import ConnectDB
+# from connect_db import ConnectDB
 
 import mysql.connector
 
@@ -19,7 +19,7 @@ from decimal import *
 # https://github.com/socketio/socket.io-client
 
 app = Flask(__name__)
-obj = ConnectDB()
+# obj = ConnectDB()
 
 app.config['SECRET_KEY'] = 'secretKey'
 # Bootstrap(app)
@@ -105,7 +105,7 @@ def login_check():
     #     result['permission'] = 'admin'
     # else:
     #     result['permission'] = 'user'
-    return simplejson.dumps(result)
+    return '' #simplejson.dumps(result)
 
 
 
@@ -136,12 +136,12 @@ def login_check():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    form = RegisterForm()
+    # form = RegisterForm()
 
-    if form.validate_on_submit():
-        username = form.username.data
+    # if form.validate_on_submit():
+        # username = form.username.data
         # email = form.email.data
-        password = form.password.data
+        # password = form.password.data
         # hashed_password = generate_password_hash(form.password.data, method='sha256')
         # try:
         #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
@@ -149,15 +149,15 @@ def signup():
         # except:
         #     conn.rollback()
 
-        return '<h1>New user has been created!</h1>'
+        return render_template('child.html') #'<h1>New user has been created!</h1>'
 
-    return render_template('signup.html', form=form)
+    # return render_template('signup.html', form='')
 
 
 @app.route('/logout')
 # @login_required
 def logout():
-    logout_user()
+    # logout_user()
     return redirect(url_for('index'))
 
 
