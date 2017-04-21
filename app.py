@@ -89,7 +89,7 @@ def login_page():
 @app.route('/api_login', methods=['GET', 'POST'])
 def login_check():
     '''
-    you will get the user id and password here 
+    you will get the user id and password here
     :return:
     '''
     result = {}
