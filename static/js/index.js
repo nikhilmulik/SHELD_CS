@@ -3,26 +3,26 @@ var  permission ='';
 
 function login_post(val) {
     if(val == 'sign_in') {
-        inputEmail = document.getElementById('inputEmail').value;
-        inputPassword = document.getElementById('inputPassword').value;
-        console.log(inputEmail, inputPassword);
+        var inputUname = document.getElementById('inputUname').value;
+        var inputPassword = document.getElementById('inputPassword').value;
+        var objectData = JSON.stringify(
+            {'inputUsername': inputUname, 'inputPassword': inputPassword})
+            ;
+        console.log(objectData);
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '/api_login/',
-            data: {'inputEmail': inputEmail, 'inputPassword': inputPassword},
+            data: objectData,
+            contentType: "application/json charset=utf-8",
+            traditional: true,
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                window.location.href = "http://127.0.0.1:5000/";
             },
             error: function (error) {
                 console.log(error);
             }
         });
-    }else if (val == 'continue'){
-        sessionStorage.clear();
-        window.location.href = "http://127.0.0.1:5000/";
-        sessionStorage.setItem('permission', 'view');
     }
 }
 

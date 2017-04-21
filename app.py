@@ -86,16 +86,21 @@ def login_page():
     return render_template('login.html')
 
 
-@app.route('/api_login', methods=['GET', 'POST'])
+@app.route('/api_login/', methods=['POST'])
 def login_check():
     '''
     you will get the user id and password here
     :return:
     '''
     result = {}
-    print '==========================================='
-    print request.args.to_dict()
-    request_data = request.args.to_dict()
+    request_data = request.json
+    username = request_data['inputUsername']
+    password = request_data['inputPassword']
+    print username, password
+
+    # you get the data in json form, please process the data from here
+
+
 
     # query = 'SELECT FirstName,LastName, Address, City, State, Country, PostalCode, Phone, Fax, Email ' \
     #         'FROM employee WHERE Email= "'+request_data['inputPassword']+'"'
@@ -105,7 +110,7 @@ def login_check():
     #     result['permission'] = 'admin'
     # else:
     #     result['permission'] = 'user'
-    return '' #simplejson.dumps(result)
+    return 'Send Acknowledgement'
 
 
 
