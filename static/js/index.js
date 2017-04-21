@@ -18,6 +18,7 @@ function login_post(val) {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                window.location.href = "http://127.0.0.1:5000/dashboard";
             },
             error: function (error) {
                 console.log(error);
