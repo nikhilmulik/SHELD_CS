@@ -97,12 +97,12 @@ def login_check():
     username = request_data['inputUsername']
     password = request_data['inputPassword']
     data = obj.select("login", {"username": username, "password": password})
-    if not all(data[0]):
-        return "Error"
-    else:
+    if data:
         result['u_id'] = data[0][0]
         result['username'] = data[0][1]
         return simplejson.dumps(result)
+    else:
+        return "Error"
 
 
     # you get the data in json form, please process the data from here

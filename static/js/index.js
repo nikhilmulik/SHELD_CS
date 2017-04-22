@@ -22,7 +22,8 @@ function login_post(val) {
             },
             error: function (error) {
                 console.log(error);
-            }
+                 $('#errormsg').html('Invalid Credentials!');
+              }
         });
     }
 }
