@@ -5,9 +5,11 @@ function login_post(val) {
     if(val == 'sign_in') {
         var inputUname = document.getElementById('inputUname').value;
         var inputPassword = document.getElementById('inputPassword').value;
-        var objectData = JSON.stringify(
-            {'inputUsername': inputUname, 'inputPassword': inputPassword})
-            ;
+        var objectData = JSON.stringify({
+            'inputUsername': inputUname,
+            'inputPassword': inputPassword
+        });
+
         console.log(objectData);
         $.ajax({
             type: 'POST',

@@ -33,6 +33,7 @@
         <div>
             <button class="btn btn-lg btn-primary"  onclick="login_post('sign_in')">Sign in</button>
             <button class="btn btn-lg btn-primary"  onclick="signUp()">SignUp</button>
+            <a href="{{ url_for('oauth_authorize', provider='facebook') }}"><img src="../static/images/fb.png"/></a>
         </div>
 
     </div>

@@ -1,7 +1,9 @@
-from flask import Flask, jsonify, request
-from flask import render_template
+from flask import Flask, jsonify, request, render_template, flash, redirect, url_for
 from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, redirect, url_for
+from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
+from oauth import OAuthSignIn
+
+
 # from flask_bootstrap import Bootstrap
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, BooleanField
@@ -10,7 +12,7 @@ from flask import Flask, render_template, redirect, url_for
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 # from connect_db import ConnectDB
 
-import mysql.connector
+# import mysql.connector
 
 from decimal import *
 
@@ -21,7 +23,7 @@ from decimal import *
 app = Flask(__name__)
 # obj = ConnectDB()
 
-app.config['SECRET_KEY'] = 'secretKey'
+# app.config['SECRET_KEY'] = 'secretKey'
 # Bootstrap(app)
 socketio = SocketIO(app)
 # login_manager = LoginManager()
@@ -112,8 +114,87 @@ def login_check():
     #     result['permission'] = 'user'
     return 'Send Acknowledgement'
 
+######################################### Sid's Code
 
 
+# from flask_login import LoginManager, UserMixin, login_user, logout_user,\
+#     current_user
+
+
+# app = Flask(__name__)
+# app.config['SECRET_KEY'] = 'top secret!'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:_Fedora25@localhost/testdb'
+# app.config['OAUTH_CREDENTIALS'] = {
+#     'facebook': {
+#
+#         'id': '277308882695364',
+#         'secret': '949643620832ced50226022166416435'
+#
+#     }
+#  'twitter': {
+ #       'id': '3RzWQclolxWZIMq5LJqzRZPTl',
+  #      'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
+   # }
+# }
+
+# db = SQLAlchemy(app)
+lm = LoginManager(app)
+lm.login_view = 'login'
+
+
+# class User(UserMixin, db.Model):
+#     __tablename__ = 'users'
+#     id = db.Column(db.Integer, primary_key=True)
+#     social_id = db.Column(db.String(64), nullable=False, unique=True)
+#     nickname = db.Column(db.String(64), nullable=False)
+#     email = db.Column(db.String(64), nullable=True)
+
+
+# @lm.user_loader
+# def load_user(id):
+#     return User.query.get(int(id))
+
+# @app.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('first'))
+
+
+@app.route('/authorize/<provider>')
+def oauth_authorize(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('login_page'))
+    oauth = OAuthSignIn.get_provider(provider)
+    return oauth.authorize()
+
+
+@app.route('/callback/<provider>')
+def oauth_callback(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('first'))
+    oauth = OAuthSignIn.get_provider(provider)
+    social_id, username, email = oauth.callback()
+    if social_id is None:
+        flash('Authentication failed.')
+        return redirect(url_for('login_page'))
+    # user = User.query.filter_by(social_id=social_id).first()
+    # if not user:
+        # user = User(social_id=social_id, username=username, email=email)
+    # user = (username, social_id, email)
+    print username, social_id, email
+        # db.session.fadd(user)
+        # db.session.commit()
+    # login_user(user, True)
+    return redirect(url_for('dash'))
+
+{"username": nickname, "email": email}
+
+# if __name__ == '__main__':
+#     # db.create_all()
+#     app.run(debug=True)
+
+################################################ Sid's code ends
 
 # def login():
 #
