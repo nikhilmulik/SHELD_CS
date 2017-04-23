@@ -10,9 +10,11 @@ from oauth import OAuthSignIn
 # from wtforms.validators import InputRequired, Email, Length
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-# from connect_db import ConnectDB
 
-# import mysql.connector
+from connect_db import ConnectDB
+import simplejson
+import mysql.connector
+
 
 from decimal import *
 
@@ -21,7 +23,7 @@ from decimal import *
 # https://github.com/socketio/socket.io-client
 
 app = Flask(__name__)
-# obj = ConnectDB()
+obj = ConnectDB()
 
 # app.config['SECRET_KEY'] = 'secretKey'
 # Bootstrap(app)
@@ -98,7 +100,14 @@ def login_check():
     request_data = request.json
     username = request_data['inputUsername']
     password = request_data['inputPassword']
-    print username, password
+    data = obj.select("login", {"username": username, "password": password})
+    if data:
+        result['u_id'] = data[0][0]
+        result['username'] = data[0][1]
+        return simplejson.dumps(result)
+    else:
+        return "Error"
+
 
     # you get the data in json form, please process the data from here
 

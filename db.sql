@@ -175,7 +175,7 @@ CREATE TABLE `login` (
   UNIQUE KEY `Username_UNIQUE` (`username`),
   UNIQUE KEY `u_id_UNIQUE` (`u_id`),
   KEY `login_FK_idx` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'varad','43534','kjboijh'),(2,'nikhil','43534','kjboijh'),(3,'asda','asasd','sdfsdfsdf'),(4,'erf','eferf','erferf');
+INSERT INTO `login` VALUES (1,'varad','43534','kjboijh'),(2,'nikhil','43534','kjboijh'),(3,'asda','asasd','sdfsdfsdf'),(4,'erf','eferf','erferf'),(5,'dsf','dfgv','dfgdfg');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,4 +342,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-19 17:23:15
+-- Dump completed on 2017-04-21 15:51:51
