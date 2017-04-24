@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16-ndb-7.5.4, for Win64 (x86_64)
 --
 -- Host: localhost    Database: shield
 -- ------------------------------------------------------
--- Server version	5.7.18-log
+-- Server version	5.7.16-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -171,11 +171,13 @@ CREATE TABLE `login` (
   `username` varchar(50) NOT NULL,
   `password` varchar(45) DEFAULT NULL,
   `auth_token` varchar(255) DEFAULT NULL,
+  `source` varchar(45) DEFAULT NULL,
+  `email_id` varchar(45) NOT NULL,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `Username_UNIQUE` (`username`),
   UNIQUE KEY `u_id_UNIQUE` (`u_id`),
   KEY `login_FK_idx` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +186,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'varad','43534','kjboijh'),(2,'nikhil','43534','kjboijh'),(3,'asda','asasd','sdfsdfsdf'),(4,'erf','eferf','erferf'),(5,'dsf','dfgv','dfgdfg');
+INSERT INTO `login` VALUES (1,'varad','43534','kjboijh',NULL,''),(2,'nikhil','43534','kjboijh',NULL,''),(3,'asda','asasd','sdfsdfsdf',NULL,''),(4,'erf','eferf','erferf',NULL,''),(5,'adsa','xxxxx',NULL,NULL,''),(6,'test',NULL,'facebook@123','fb','test@test.com');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +279,6 @@ CREATE TABLE `user_profile` (
   `first_name` char(100) NOT NULL,
   `last_name` char(100) DEFAULT NULL,
   `mac_address` varchar(255) DEFAULT NULL,
-  `email_id` varchar(255) DEFAULT NULL,
   `u_id` int(50) NOT NULL,
   `subscribed_feature_ids` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
@@ -342,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-21 15:51:51
+-- Dump completed on 2017-04-24 18:33:59

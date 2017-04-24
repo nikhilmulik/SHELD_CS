@@ -23,7 +23,6 @@ class ConnectDB:
         self.cursor = self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
 
     def connect(self, dbHost, dbUser, dbPass, dbDB, dbConnectAttempt):
-        # import pdb; pdb.set_trace()
         for attempt in range(eval(dbConnectAttempt)):
             # print 'connection attempts: ', attempt
             try:
