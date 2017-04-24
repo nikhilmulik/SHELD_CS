@@ -221,6 +221,25 @@ def signup():
     # return render_template('signup.html', form='')
 
 
+@app.route('/getKeylogData')
+# @login_required
+def getKeyLogData():
+    # import pdb;
+    # pdb.set_trace();
+    tuples = obj.select('keylog', {'u_id': '3'})
+    # res[0][1] = str(res[0][1])
+    result = []
+    tuplesList = list(tuples)
+
+    for tup in tuplesList:
+        tupleData = list(tup)
+        tupleData[1] = str(tupleData[1])
+
+        result.append(tupleData)
+
+    return simplejson.dumps(result)
+
+
 @app.route('/logout')
 # @login_required
 def logout():
