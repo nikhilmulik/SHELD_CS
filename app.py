@@ -125,8 +125,8 @@ def login_check():
 
 ######################################### Sid's Code
 
-# lm = LoginManager(app)
-# lm.login_view = 'login'
+lm = LoginManager(app)
+lm.login_view = 'login'
 
 # @lm.user_loader
 # def load_user(id):
