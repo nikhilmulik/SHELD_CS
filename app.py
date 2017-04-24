@@ -149,11 +149,12 @@ def oauth_callback(provider):
     if social_id is None:
         flash('Authentication failed.')
         return redirect(url_for('login_page'))
+    # print social_id, username, email
     result = obj.insert(
         "login",
         {"username": username,
          "auth_token": social_id,
-         "email": email,
+         "email_id": email,
          "source": provider
          })
     print result
