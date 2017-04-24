@@ -149,10 +149,31 @@ def oauth_callback(provider):
     if social_id is None:
         flash('Authentication failed.')
         return redirect(url_for('login_page'))
-    print username, social_id, email
-    return redirect(url_for('dash'))
+    result = obj.insert(
+        "login",
+        {"username": username,
+         "auth_token": social_id,
+         "email": email,
+         "source": provider
+         })
+    print result
+    return 'OK'
 
-# {"username": nickname, "email": email}
+    # print username, social_id, email, provider
+    # return redirect(url_for('dash'))
+
+    # result = {}
+    # request_data = request.json
+    # username = request_data['inputUsername']
+    # password = request_data['inputPassword']
+    # data = obj.select("login", {"username": username, "password": password})
+    # if data:
+    #     result['u_id'] = data[0][0]
+    #     result['username'] = data[0][1]
+    #     return simplejson.dumps(result)
+    # else:
+    #     return "Error"
+
 
 ################################################ Sid's code ends
 

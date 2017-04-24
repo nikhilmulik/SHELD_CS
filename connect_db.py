@@ -125,11 +125,12 @@ class ConnectDB:
                     dict_values.append('Null')
                     continue
                 dict_values.append(str(dictionary[item]))
-            query = "INSERT INTO %s ( %s) VALUES(%s);" % (table, ", ".join(dict_fields), ", ".join(dict_values))
+            query = "INSERT INTO %s (%s) VALUES(%s);" % (table, ", ".join(dict_fields), ", ".join(dict_values))
             self.cursor.execute(query)
             result = self.cursor.fetchall()
             return result
         except MySQLdb.Error:
+            print MySQLdb.Error
             self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
             if not self.select(table, dictionary):
                 self.insert(table, dictionary)
