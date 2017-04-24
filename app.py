@@ -1,16 +1,20 @@
-from flask import Flask, jsonify, request
-from flask import render_template
+from flask import Flask, jsonify, request, render_template, flash, redirect, url_for
 from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, redirect, url_for
+# from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
+from oauth import OAuthSignIn
+
+
 # from flask_bootstrap import Bootstrap
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, BooleanField
 # from wtforms.validators import InputRequired, Email, Length
 # from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+
 from connect_db import ConnectDB
 import simplejson
-import mysql.connector
+# import mysql.connector
+
 
 from decimal import *
 
@@ -21,7 +25,7 @@ from decimal import *
 app = Flask(__name__)
 obj = ConnectDB()
 
-app.config['SECRET_KEY'] = 'secretKey'
+# app.config['SECRET_KEY'] = 'secretKey'
 # Bootstrap(app)
 socketio = SocketIO(app)
 # login_manager = LoginManager()
@@ -97,12 +101,12 @@ def login_check():
     username = request_data['inputUsername']
     password = request_data['inputPassword']
     data = obj.select("login", {"username": username, "password": password})
-    if not all(data[0]):
-        return "Error"
-    else:
+    if data:
         result['u_id'] = data[0][0]
         result['username'] = data[0][1]
         return simplejson.dumps(result)
+    else:
+        return "Error"
 
 
     # you get the data in json form, please process the data from here
@@ -119,8 +123,38 @@ def login_check():
     #     result['permission'] = 'user'
     return 'Send Acknowledgement'
 
+######################################### Sid's Code
+
+# lm = LoginManager(app)
+# lm.login_view = 'login'
+
+# @lm.user_loader
+# def load_user(id):
+#     return User.query.get(int(id))
+
+@app.route('/authorize/<provider>')
+def oauth_authorize(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('login_page'))
+    oauth = OAuthSignIn.get_provider(provider)
+    return oauth.authorize()
 
 
+@app.route('/callback/<provider>')
+def oauth_callback(provider):
+    if not current_user.is_anonymous:
+        return redirect(url_for('first'))
+    oauth = OAuthSignIn.get_provider(provider)
+    social_id, username, email = oauth.callback()
+    if social_id is None:
+        flash('Authentication failed.')
+        return redirect(url_for('login_page'))
+    print username, social_id, email
+    return redirect(url_for('dash'))
+
+# {"username": nickname, "email": email}
+
+################################################ Sid's code ends
 
 # def login():
 #
