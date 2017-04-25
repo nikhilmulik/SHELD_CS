@@ -151,7 +151,10 @@ class ConnectDB:
             self.update(table, dictionary, dict_where)
 
     def execute_query(self, query):
+        print query
         try:
+            print 'Inside TRY'
+            import pdb; set_trace()
             self.cursor.execute(query)
             result = self.cursor.fetchall()
             return result
