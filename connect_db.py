@@ -154,7 +154,7 @@ class ConnectDB:
         print query
         try:
             print 'Inside TRY'
-            import pdb; set_trace()
+
             self.cursor.execute(query)
             result = self.cursor.fetchall()
             return result
