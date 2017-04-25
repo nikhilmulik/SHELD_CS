@@ -150,13 +150,15 @@ def oauth_callback(provider):
         flash('Authentication failed.')
         return redirect(url_for('login_page'))
     # print social_id, username, email
-    result = obj.insert(
-        "login",
-        {"username": username,
-         "auth_token": social_id,
-         "email_id": email,
-         "source": provider
-         })
+    # table = "login"
+    data = {"username": username,
+            "email_id": email,
+            "auth_token": social_id,
+            "login_source": provider
+            }
+    # result = obj.insert(table, data)
+    query = "INSERT INTO login (username, email_id, auth_token, login_source) VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
+    result = obj.execute_query(query)
     print result
     return 'OK'
 
