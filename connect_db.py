@@ -152,6 +152,7 @@ class ConnectDB:
 
     def execute_query(self, query):
         try:
+            # import pdb; pdb.set_trace()
             self.cursor.execute(query)
             result = self.cursor.fetchall()
             return result
