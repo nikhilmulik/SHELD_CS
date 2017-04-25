@@ -242,6 +242,24 @@ def getKeyLogData():
 
     return simplejson.dumps(result)
 
+@app.route('/get_profile')
+# @login_required
+def getProfile():
+    # import pdb;
+    # pdb.set_trace();
+    tuples = obj.select('user_profile', {'u_id': '1'})
+    # res[0][1] = str(res[0][1])
+    result = []
+    # tuplesList = list(tuples)
+    #
+    # for tup in tuplesList:
+    #     tupleData = list(tup)
+    #     tupleData[1] = str(tupleData[1])
+    #
+    #     result.append(tupleData)
+
+    return simplejson.dumps(tuples)
+
 
 @app.route('/logout')
 # @login_required
