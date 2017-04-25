@@ -168,16 +168,16 @@ DROP TABLE IF EXISTS `login`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `login` (
   `u_id` int(50) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `auth_token` varchar(255) DEFAULT NULL,
-  `source` varchar(45) DEFAULT NULL,
-  `email_id` varchar(45) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `password` varchar(145) DEFAULT NULL,
+  `auth_token` varchar(300) DEFAULT NULL,
+  `login_source` varchar(145) DEFAULT NULL,
+  `email_id` varchar(145) NOT NULL,
   PRIMARY KEY (`u_id`),
   UNIQUE KEY `Username_UNIQUE` (`username`),
   UNIQUE KEY `u_id_UNIQUE` (`u_id`),
   KEY `login_FK_idx` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'varad','43534','kjboijh',NULL,''),(2,'nikhil','43534','kjboijh',NULL,''),(3,'asda','asasd','sdfsdfsdf',NULL,''),(4,'erf','eferf','erferf',NULL,''),(5,'adsa','xxxxx',NULL,NULL,''),(6,'test',NULL,'facebook@123','fb','test@test.com');
+INSERT INTO `login` VALUES (1,'varad','43534','kjboijh',NULL,''),(2,'nikhil','43534','kjboijh',NULL,'');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-24 18:33:59
+-- Dump completed on 2017-04-25 17:54:35
