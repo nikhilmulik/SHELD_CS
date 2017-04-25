@@ -160,7 +160,7 @@ def oauth_callback(provider):
     query = "INSERT INTO login (username, email_id, auth_token, login_source) VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
     result = obj.execute_query(query)
     print result
-    return 'OK'
+    return redirect(url_for('dash'))
 
     # print username, social_id, email, provider
     # return redirect(url_for('dash'))
@@ -241,6 +241,24 @@ def getKeyLogData():
         result.append(tupleData)
 
     return simplejson.dumps(result)
+
+@app.route('/get_profile')
+# @login_required
+def getProfile():
+    # import pdb;
+    # pdb.set_trace();
+    tuples = obj.select('user_profile', {'u_id': '1'})
+    # res[0][1] = str(res[0][1])
+    result = []
+    # tuplesList = list(tuples)
+    #
+    # for tup in tuplesList:
+    #     tupleData = list(tup)
+    #     tupleData[1] = str(tupleData[1])
+    #
+    #     result.append(tupleData)
+
+    return simplejson.dumps(tuples)
 
 
 @app.route('/logout')
