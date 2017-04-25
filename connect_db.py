@@ -151,6 +151,7 @@ class ConnectDB:
             self.update(table, dictionary, dict_where)
 
     def execute_query(self, query):
+        print query
         try:
             # import pdb; pdb.set_trace()
             self.cursor.execute(query)

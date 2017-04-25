@@ -3,7 +3,11 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <orderEntry type="jdk" jdkName="Python 2.7.12 (C:\Python27\python.exe)" jdkType="Python SDK" />
+=======
+    <orderEntry type="jdk" jdkName="Python 2.7.13 (/usr/bin/python2.7)" jdkType="Python SDK" />
+>>>>>>> d2f4fdc433cd4cab37d991e7a34f84e70d180867
 =======
     <orderEntry type="jdk" jdkName="Python 2.7 (C:\Python27\python.exe)" jdkType="Python SDK" />
 >>>>>>> 4324a3761f98005fa0314ce6a43b4212ec66af11
