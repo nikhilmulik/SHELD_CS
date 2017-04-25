@@ -160,7 +160,7 @@ def oauth_callback(provider):
     query = "INSERT INTO login (username, email_id, auth_token, login_source) VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
     result = obj.execute_query(query)
     print result
-    return 'OK'
+    return redirect(url_for('dash'))
 
     # print username, social_id, email, provider
     # return redirect(url_for('dash'))
