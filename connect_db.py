@@ -20,23 +20,37 @@ class ConnectDB:
         self.dbConnectAttempt = config.get('Database', 'connect_attempt')
         self.dbHost = config.get('Database', 'host')
         self.dbDB = config.get('Database', 'db_name')
-        self.cursor = self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
-
-    def connect(self, dbHost, dbUser, dbPass, dbDB, dbConnectAttempt):
-        for attempt in range(eval(dbConnectAttempt)):
+        # self.cursor = self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
+        for attempt in range(eval(self.dbConnectAttempt)):
             # print 'connection attempts: ', attempt
             try:
-                conn = MySQLdb.connect(dbHost, dbUser, dbPass, dbDB)
-                cursor = conn.cursor()
+                self.conn = MySQLdb.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB)
+                self.cursor = self.conn.cursor()
             except MySQLdb.Error, e:
                 print "MySQL Error %d: %s", e.args[0], e.args[1]
-                conn.rollback()
-                time.sleep(5)
-                self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
+                self.conn.rollback()
+                # time.sleep(5)
+                # self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
             finally:
-                if conn:
+                if self.conn:
                     break
-        return cursor
+        # return cursor
+
+    # def connect(self, dbHost, dbUser, dbPass, dbDB, dbConnectAttempt):
+    #     for attempt in range(eval(dbConnectAttempt)):
+    #         # print 'connection attempts: ', attempt
+    #         try:
+    #             self.conn = MySQLdb.connect(dbHost, dbUser, dbPass, dbDB)
+    #             cursor = self.conn.cursor()
+    #         except MySQLdb.Error, e:
+    #             print "MySQL Error %d: %s", e.args[0], e.args[1]
+    #             self.conn.rollback()
+    #             time.sleep(5)
+    #             self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
+    #         finally:
+    #             if self.conn:
+    #                 break
+    #     return cursor
 
     def select(self, table, dictionary=None, fetch_mult = True):
         try:
@@ -47,6 +61,7 @@ class ConnectDB:
                 result = self.cursor.fetchall()
                 return result
             # global cur_table
+
             self.cur_table = table
             # global cur_dbobj
             # cur_dbobj = db_obj
@@ -69,6 +84,7 @@ class ConnectDB:
         except MySQLdb.Error:
             self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
             return self.select(table, dictionary, fetch_mult)
+
 
 
     def dict_to_where(self, dictionary):
@@ -115,6 +131,7 @@ class ConnectDB:
             self.get_field_type()
 
     def insert(self, table, dictionary):
+        import pdb;  pdb.set_trace()
         try:
             dict_fields = []
             dict_values = []
@@ -151,6 +168,7 @@ class ConnectDB:
             self.update(table, dictionary, dict_where)
 
     def execute_query(self, query):
+        # import pdb; pdb.set_trace()
         print query
         try:
             print 'Inside TRY'
@@ -160,6 +178,14 @@ class ConnectDB:
             return result
         except MySQLdb.Error:
             print 'Error'
+        # try:
+        # query = "INSERT INTO `shield`.`login` (`username`,`auth_token`,`login_source`,`email_id`) VALUES ('dunkdude17', 'facebook$1705864569429171',  'facebook', 'dunkdude17@gmail.com');"
+        self.cursor.execute(query)
+        self.conn.commit()
+        result = self.cursor.fetchall()
+        return result
+        # except MySQLdb.Error:
+        #     print 'Error'
 
 
 # cursor.execute("SELECT VERSION()")

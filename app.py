@@ -3,7 +3,6 @@ from flask_socketio import SocketIO, emit
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from oauth import OAuthSignIn
 
-
 # from flask_bootstrap import Bootstrap
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, BooleanField
@@ -23,7 +22,7 @@ from decimal import *
 # https://github.com/socketio/socket.io-client
 
 app = Flask(__name__)
-obj = ConnectDB()
+db = ConnectDB()
 
 # app.config['SECRET_KEY'] = 'secretKey'
 # Bootstrap(app)
@@ -157,8 +156,9 @@ def oauth_callback(provider):
             "login_source": provider
             }
     # result = obj.insert(table, data)
-    query = "INSERT INTO login (`username`, `email_id`, `auth_token`, `login_source`) VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
-    result = obj.execute_query(query)
+    query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
+            "VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
+    result = db.execute_query(query)
     print result
     return redirect(url_for('dash'))
 
