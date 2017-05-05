@@ -170,14 +170,6 @@ class ConnectDB:
     def execute_query(self, query):
         # import pdb; pdb.set_trace()
         print query
-        try:
-            print 'Inside TRY'
-            # import pdb; pdb.set_trace()
-            self.cursor.execute(query)
-            result = self.cursor.fetchall()
-            return result
-        except MySQLdb.Error:
-            print 'Error'
         # try:
         # query = "INSERT INTO `shield`.`login` (`username`,`auth_token`,`login_source`,`email_id`) VALUES ('dunkdude17', 'facebook$1705864569429171',  'facebook', 'dunkdude17@gmail.com');"
         self.cursor.execute(query)
@@ -197,5 +189,3 @@ class ConnectDB:
 # print '...'
 # print obj.select('employee', {'City':'Calgary', 'Title':['Sales Support Agent', 'Sales Manager']})
 # print obj.select('employee', {'City':'Calgary', 'Title':'Sales Support Agent', 'Title':'Sales Manager'})
-
-
