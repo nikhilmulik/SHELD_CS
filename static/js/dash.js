@@ -16,10 +16,6 @@ function getProfile() {
 //                 $('#errormsg').html('Invalid Credentials!');
               }
         });
-
-
-
-
 }
 
 
@@ -85,7 +81,7 @@ $(document).on('click', '#new_chat', function (e) {
          //do some stuff
          e.preventDefault()
           let user_input  = $( 'input.form-control' ).val()
-          let user_name = 'test_user'
+          let user_name = localStorage.getItem('username')
           socket.emit( 'my event', {
             user_name : user_name,
             message : user_input
@@ -98,7 +94,7 @@ $(document).on('click', '#new_chat', function (e) {
 
           e.preventDefault()
           let user_input  = $( 'input.form-control' ).val()
-          let user_name = 'test_user'
+          let user_name = localStorage.getItem('username')
           socket.emit( 'my event', {
             user_name : user_name,
             message : user_input
@@ -116,3 +112,15 @@ $(document).on('click', '#new_chat', function (e) {
           $( 'div.col-md-10' ).append( '<div class="messages msg_sent"><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'<br><time style="font-size:80%">'+  d.toString().substring(0,d.toString().indexOf("GMT"))+'</time></div><br>' )
         }
       } )
+
+        $(document).ready(function() {
+         if(!localStorage.getItem('username')){
+               return;
+         }
+         setDashName();
+
+
+        });
+      function setDashName(){
+         $("#uname").text( localStorage.getItem('username'));
+      }
