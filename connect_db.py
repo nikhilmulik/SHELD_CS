@@ -190,5 +190,3 @@ class ConnectDB:
 # print '...'
 # print obj.select('employee', {'City':'Calgary', 'Title':['Sales Support Agent', 'Sales Manager']})
 # print obj.select('employee', {'City':'Calgary', 'Title':'Sales Support Agent', 'Title':'Sales Manager'})
-
-
