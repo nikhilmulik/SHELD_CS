@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request, render_template, flash, redirect, url
 from flask_socketio import SocketIO, emit
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from oauth import OAuthSignIn
-
+import time
 
 # from flask_bootstrap import Bootstrap
 # from flask_wtf import FlaskForm
@@ -23,6 +23,8 @@ from decimal import *
 # https://github.com/socketio/socket.io-client
 
 app = Flask(__name__)
+
+
 obj = ConnectDB()
 
 # app.config['SECRET_KEY'] = 'secretKey'
@@ -68,18 +70,18 @@ def handle_my_custom_event(json):
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
 
-@app.route('/api/post_keylogs/<uid>', methods=['POST'])
-def add_message(uid):
+@app.route('/api/post_keylogs/<machine_id>', methods=['POST'])
+def post_keylog(machine_id):
     """
     check if valid uid, next of true
     :param uid:
     :return:
     """
-    # import pdb; pdb.set_trace()
-    # content = request.json
-    print uid
+
     print request.json
-    return jsonify({"uuid":uid})
+    query = "INSERT INTO `shield`.`keylog` (`u_id`, `keylog_date_time`, `application_name`, `log_text`, `notification_id`, `unique_identifieri`) VALUES ({0},'{1}','{2}','{3}','{4}','{5}')".format(request.json['user_id'], request.json['datetime'], request.json['application'], request.json['data'], '0', machine_id);
+    db_result = obj.execute_query(query)
+    return jsonify({"uuid":machine_id})
 
 
 # TONY's STUFF
@@ -266,6 +268,12 @@ def getProfile():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+# import random
+# hash = random.getrandbits(128)
+# print "hash value: %032x" % hash
+
 
 
 if __name__ == "__main__":

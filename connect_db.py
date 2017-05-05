@@ -14,13 +14,15 @@ class ConnectDB:
     def __init__(self):
         self.cur_table = None
         config = ConfigParser.ConfigParser()
-        config.read("config.cfg")
+        current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
+        config.read(os.path.join(current_dir, "config.cfg"))
         self.dbUser = config.get('Database', 'username')
         self.dbPass = config.get('Database', 'password') if config.get('Database', 'password') else os.getenv("DB_PSW")
         self.dbConnectAttempt = config.get('Database', 'connect_attempt')
         self.dbHost = config.get('Database', 'host')
         self.dbDB = config.get('Database', 'db_name')
         # self.cursor = self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
+
         for attempt in range(eval(self.dbConnectAttempt)):
             # print 'connection attempts: ', attempt
             try:
@@ -131,7 +133,6 @@ class ConnectDB:
             self.get_field_type()
 
     def insert(self, table, dictionary):
-        import pdb;  pdb.set_trace()
         try:
             dict_fields = []
             dict_values = []
