@@ -1,6 +1,15 @@
 
 var  permission ='';
 
+
+$(document).ready(function() {
+ // executes when HTML-Document is loaded and DOM is ready
+    var cookieValue = $.cookie("username");
+
+    console.log(cookieValue);
+});
+
+
 function login_post(val) {
     if(val == 'sign_in') {
         var inputUname = document.getElementById('inputUname').value;
@@ -20,6 +29,8 @@ function login_post(val) {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                $.cookie("username", data.username);
+
                 window.location.href = "http://127.0.0.1:5000/dashboard";
             },
             error: function (error) {
@@ -52,6 +63,7 @@ function fx(o) {
     },1000);
   });
 }
+
 
 
 
