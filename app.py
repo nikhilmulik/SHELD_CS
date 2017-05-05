@@ -150,15 +150,21 @@ def oauth_callback(provider):
         return redirect(url_for('login_page'))
     # print social_id, username, email
     # table = "login"
-    data = {"username": username,
-            "email_id": email,
-            "auth_token": social_id,
-            "login_source": provider
-            }
+    fb_details = {'username': username,
+         'auth_token': social_id,
+         'login_source': provider,
+         'email_id': email
+    }
     # result = obj.insert(table, data)
+    entry = db.select('login', {'username': username})
+    if entry:
+        print 'Record Exists: ' + str(entry)
+        return redirect(url_for('dash'))
+    # SELECT username from login where username = 'dunkdude17';
     query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
-            "VALUES ('"+ data['username'] +"', '" + data['email_id'] + "', '" + data['auth_token'] + "', '" + data['login_source'] + "');"
+            "VALUES ('"+ fb_details['username'] +"', '" + fb_details['email_id'] + "', '" + fb_details['auth_token'] + "', '" + fb_details['login_source'] + "');"
     result = db.execute_query(query)
+    # result = db.insert('login', fb_details)
     print result
     return redirect(url_for('dash'))
 

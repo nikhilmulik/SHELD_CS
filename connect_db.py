@@ -131,7 +131,7 @@ class ConnectDB:
             self.get_field_type()
 
     def insert(self, table, dictionary):
-        import pdb;  pdb.set_trace()
+        # import pdb;  pdb.set_trace()
         try:
             dict_fields = []
             dict_values = []
