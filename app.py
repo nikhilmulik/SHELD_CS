@@ -138,11 +138,11 @@ def oauth_authorize(provider):
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
 
-
+# Valid OAuth URI specified in the FB app : http://localhost:5000/callback/facebook/
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('first'))
+        return redirect(url_for('login_page'))
     oauth = OAuthSignIn.get_provider(provider)
     social_id, username, email = oauth.callback()
     if social_id is None:
