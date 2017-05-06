@@ -102,7 +102,7 @@ def login_check():
     request_data = request.json
     username = request_data['inputUsername']
     password = request_data['inputPassword']
-    data = obj.select("login", {"username": username, "password": password})
+    data = db.select("login", {"username": username, "password": password})
     if data:
         result['u_id'] = data[0][0]
         result['username'] = data[0][1]
@@ -256,7 +256,7 @@ def getKeyLogData():
 def getProfile():
     # import pdb;
     # pdb.set_trace();
-    tuples = obj.select('user_profile', {'u_id': '1'})
+    tuples = db.select('user_profile', {'u_id': '1'})
     # res[0][1] = str(res[0][1])
     result = []
     # tuplesList = list(tuples)
