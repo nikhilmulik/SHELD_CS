@@ -65,12 +65,12 @@ def messageRecived():
 @socketio.on('my event')
 def handle_my_custom_event(json):
     #print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=messageRecived)\
+    socketio.emit('my response', json, callback=messageRecived)
 
 @socketio.on('key_log')
 def dbInsert():
     #print('received my event: ' + str(json))
-    socketio.emit('my response', {'insert': 'true'}, callback=messageRecived)
+    socketio.emit('key_log_in', {'insert': 'true'}, callback=messageRecived)
 
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
