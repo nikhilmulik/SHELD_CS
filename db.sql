@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.16-ndb-7.5.4, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: shield
 -- ------------------------------------------------------
@@ -177,7 +177,7 @@ CREATE TABLE `login` (
   UNIQUE KEY `Username_UNIQUE` (`username`),
   UNIQUE KEY `u_id_UNIQUE` (`u_id`),
   KEY `login_FK_idx` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'varad','43534','kjboijh',NULL,''),(2,'nikhil','43534','kjboijh',NULL,'');
+INSERT INTO `login` VALUES (1,'shield_user1','123','kjboijh',NULL,'shielduser_1@shield.com'),(2,'shield_user2','123','kjboijh',NULL,'shielduser_2@shield.com'),(3,'support_user1','123','auth1',NULL,'support@shield.com'),(4,'shield_admin','123','auth1',NULL,'admin@shield.com');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,6 +305,32 @@ LOCK TABLES `user_profile` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `wait_list`
+--
+
+DROP TABLE IF EXISTS `wait_list`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wait_list` (
+  `guest_id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(20) DEFAULT NULL,
+  `last_name` varchar(20) DEFAULT NULL,
+  `guest_count` int(11) DEFAULT NULL,
+  PRIMARY KEY (`guest_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `wait_list`
+--
+
+LOCK TABLES `wait_list` WRITE;
+/*!40000 ALTER TABLE `wait_list` DISABLE KEYS */;
+INSERT INTO `wait_list` VALUES (2,'mike','jones',4),(3,'mike','jones',4);
+/*!40000 ALTER TABLE `wait_list` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `webcam_capture`
 --
 
@@ -343,4 +369,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-25 17:54:35
+-- Dump completed on 2017-05-06 21:21:41
