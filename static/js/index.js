@@ -44,7 +44,7 @@ function login_post(val) {
                 //create cookie
                 createCookie('username',data.username,10);
 
-                window.location.href = "http://127.0.0.1:5000/dashboard";
+                window.location.href = "http://localhost:5000/dashboard";
             },
             error: function (error) {
                 console.log(error);
