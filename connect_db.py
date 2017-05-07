@@ -26,6 +26,7 @@ class ConnectDB:
         for attempt in range(eval(self.dbConnectAttempt)):
             # print 'connection attempts: ', attempt
             try:
+                # import pdb; pdb.set_trace()
                 self.conn = MySQLdb.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB)
                 self.cursor = self.conn.cursor()
             except MySQLdb.Error, e:

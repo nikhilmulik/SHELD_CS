@@ -80,7 +80,7 @@ def post_keylog(machine_id):
 
     print request.json
     query = "INSERT INTO `shield`.`keylog` (`u_id`, `keylog_date_time`, `application_name`, `log_text`, `notification_id`, `unique_identifieri`) VALUES ({0},'{1}','{2}','{3}','{4}','{5}')".format(request.json['user_id'], request.json['datetime'], request.json['application'], request.json['data'], '0', machine_id);
-    db_result = obj.execute_query(query)
+    db_result = db.execute_query(query)
     return jsonify({"uuid":machine_id})
 
 
