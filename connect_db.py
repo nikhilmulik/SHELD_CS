@@ -14,7 +14,8 @@ class ConnectDB:
     def __init__(self):
         self.cur_table = None
         config = ConfigParser.ConfigParser()
-        config.read(os.path.join(os.getcwd(), 'config.cfg'))
+        current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
+        config.read(os.path.join(current_dir, "config.cfg"))
         self.dbUser = config.get('Database', 'username')
         self.dbPass = config.get('Database', 'password') if config.get('Database', 'password') else os.getenv("DB_PSW")
         self.dbConnectAttempt = config.get('Database', 'connect_attempt')
@@ -74,9 +75,9 @@ class ConnectDB:
                 dict_fields.append(item)
                 dict_values.append(dictionary[item])
             query = "SELECT * FROM %s WHERE (%s);" % (table, self.dict_to_where(dictionary))
-            print query
+            #print query
             self.cursor.execute(query)
-            print 'Query: ', query
+            #print 'Query: ', query
             if fetch_mult:
                 result = self.cursor.fetchall()
             else:
