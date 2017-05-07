@@ -1,14 +1,17 @@
 from rauth import OAuth1Service, OAuth2Service
 from flask import current_app, url_for, request, redirect, session, json
-from ConfigParser import ConfigParser
+import ConfigParser
+import os
 
 
 class OAuthSignIn(object):
     providers = None
 
     def __init__(self, provider_name):
-        config = ConfigParser()
-        config.read('config.cfg')
+        self.cur_table = None
+        config = ConfigParser.ConfigParser()
+        current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
+        config.read(os.path.join(current_dir, "config.cfg"))
         self.provider_name = provider_name
         self.consumer_id = config.get('Facebook','id')
         self.consumer_secret = config.get('Facebook','secret')

@@ -76,9 +76,9 @@ class ConnectDB:
                 dict_fields.append(item)
                 dict_values.append(dictionary[item])
             query = "SELECT * FROM %s WHERE (%s);" % (table, self.dict_to_where(dictionary))
-            print query
+            #print query
             self.cursor.execute(query)
-            print 'Query: ', query
+            #print 'Query: ', query
             if fetch_mult:
                 result = self.cursor.fetchall()
             else:

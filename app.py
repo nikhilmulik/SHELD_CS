@@ -67,6 +67,11 @@ def handle_my_custom_event(json):
     #print('received my event: ' + str(json))
     socketio.emit('my response', json, callback=messageRecived)
 
+@socketio.on('key_log')
+def dbInsert():
+    #print('received my event: ' + str(json))
+    socketio.emit('key_log_in', {'insert': 'true'}, callback=messageRecived)
+
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
 
@@ -238,7 +243,7 @@ def signup():
 def getKeyLogData():
     # import pdb;
     # pdb.set_trace();
-    tuples = obj.select('keylog', {'u_id': '3'})
+    tuples = db.select('keylog', {'u_id': '3'})
     # res[0][1] = str(res[0][1])
     result = []
     tuplesList = list(tuples)

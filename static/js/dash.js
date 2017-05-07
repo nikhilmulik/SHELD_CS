@@ -1,3 +1,4 @@
+
 function getProfile() {
 
         $.ajax({
@@ -16,10 +17,6 @@ function getProfile() {
 //                 $('#errormsg').html('Invalid Credentials!');
               }
         });
-
-
-
-
 }
 
 
@@ -76,16 +73,17 @@ $(document).on('click', '#new_chat', function (e) {
       var socket = io.connect( 'http://localhost:5000/' )
       // broadcast a message
       socket.on( 'connect', function() {
-        socket.emit( 'my event', {
+
+       /* socket.emit( 'my event', {
           data: 'User Connected'
-        } )
+        } )*/
         //for enter button
         $(document).on("keypress", "#btn-input", function(e) {
         if (e.which == 13) {
          //do some stuff
          e.preventDefault()
           let user_input  = $( 'input.form-control' ).val()
-          let user_name = 'test_user'
+          let user_name = readCookie('username')
           socket.emit( 'my event', {
             user_name : user_name,
             message : user_input
@@ -98,7 +96,7 @@ $(document).on('click', '#new_chat', function (e) {
 
           e.preventDefault()
           let user_input  = $( 'input.form-control' ).val()
-          let user_name = 'test_user'
+          let user_name = readCookie('username')
           socket.emit( 'my event', {
             user_name : user_name,
             message : user_input
@@ -109,10 +107,23 @@ $(document).on('click', '#new_chat', function (e) {
       } )
       // capture message
       socket.on( 'my response', function( msg ) {
-        console.log( msg )
+        console.log(readCookie('username') )
         if( typeof msg.user_name !== 'undefined' )
          {
             var d = new Date();
           $( 'div.col-md-10' ).append( '<div class="messages msg_sent"><b style="color: #000">'+msg.user_name+'</b> '+msg.message+'<br><time style="font-size:80%">'+  d.toString().substring(0,d.toString().indexOf("GMT"))+'</time></div><br>' )
         }
       } )
+
+        $(document).ready(function() {
+
+         if(!readCookie('username')){
+               return;
+         }
+         setDashName();
+
+
+        });
+      function setDashName(){
+         $("#uname").text(readCookie('username'));
+        }
