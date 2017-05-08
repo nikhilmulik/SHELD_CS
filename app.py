@@ -218,24 +218,24 @@ def oauth_callback(provider):
 #
 #     return render_template('login.html', form=form)
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    # form = RegisterForm()
-
-    # if form.validate_on_submit():
-        # username = form.username.data
-        # email = form.email.data
-        # password = form.password.data
-        # hashed_password = generate_password_hash(form.password.data, method='sha256')
-        # try:
-        #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
-        #     conn.commit()
-        # except:
-        #     conn.rollback()
-
-        return render_template('child.html') #'<h1>New user has been created!</h1>'
-
-    # return render_template('signup.html', form='')
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     # form = RegisterForm()
+#
+#     # if form.validate_on_submit():
+#         # username = form.username.data
+#         # email = form.email.data
+#         # password = form.password.data
+#         # hashed_password = generate_password_hash(form.password.data, method='sha256')
+#         # try:
+#         #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
+#         #     conn.commit()
+#         # except:
+#         #     conn.rollback()
+#
+#         return render_template('child.html') #'<h1>New user has been created!</h1>'
+#
+#     # return render_template('signup.html', form='')
 
 
 @app.route('/getKeylogData/<user_id>')
