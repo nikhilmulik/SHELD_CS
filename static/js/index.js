@@ -25,11 +25,25 @@ function signup()
 {
     window.location.href = "http://localhost:5000/sign";
 }
+
+function validateEmail(email)
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
 function signup_post(val){
     if(val == 'sign_up') {
         var inputUname = document.getElementById('inputUname').value;
+        console.log(inputUname);
         var inputEmail = document.getElementById('inputEmail').value;
-        console.log(inputEmail);
+
+        var isitvalid = this.validateEmail(inputEmail);
+        console.log("VALID" + isitvalid);
+        if(isitvalid == false){
+            return $('#errormsg').html('Enter a valid email address!');
+        }
+
         var inputPassword = document.getElementById('inputPassword').value;
         var objectData = JSON.stringify({
             'inputUsername': inputUname,
