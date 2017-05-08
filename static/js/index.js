@@ -21,6 +21,42 @@ function readCookie(name) {
 	}
 	return null;
 }
+function signup()
+{
+    window.location.href = "http://localhost:5000/sign";
+}
+function signup_post(val){
+    if(val == 'sign_up') {
+        var inputUname = document.getElementById('inputUname').value;
+        var inputEmail = document.getElementById('inputEmail').value;
+        console.log(inputEmail);
+        var inputPassword = document.getElementById('inputPassword').value;
+        var objectData = JSON.stringify({
+            'inputUsername': inputUname,
+            'inputEmail': inputEmail,
+            'inputPassword': inputPassword
+        });
+
+        console.log(objectData);
+        $.ajax({
+            type: 'POST',
+            url: '/api_signup/',
+            data: objectData,
+            contentType: "application/json charset=utf-8",
+            traditional: true,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                window.location.href = "http://localhost:5000/login";
+            },
+            error: function (error) {
+                console.log("HERE ERROR: " + error);
+                 $('#errormsg').html('Username already exist!');
+              }
+        });
+    }
+
+}
 
 
 function login_post(val) {
@@ -43,7 +79,6 @@ function login_post(val) {
             success: function (data) {
                 //create cookie
                 createCookie('username',data.username,10);
-                createCookie('u_id',data.u_id,10);
 
                 window.location.href = "http://localhost:5000/dashboard";
             },

@@ -65,6 +65,7 @@ def post_keylog(machine_id):
 # TONY's STUFF
 
 
+
 @app.route('/login')
 def login_page():
     return render_template('login.html')
@@ -88,20 +89,34 @@ def login_check():
     else:
         return "Error"
 
-
-    # you get the data in json form, please process the data from here
-
-
-
-    # query = 'SELECT FirstName,LastName, Address, City, State, Country, PostalCode, Phone, Fax, Email ' \
-    #         'FROM employee WHERE Email= "'+request_data['inputPassword']+'"'
-    # db_result = obj.execute_query(query)
-    # result['db_result'] = db_result[0]
-    # if request_data['inputPassword'] == 'andrew@chinookcorp.com':
-    #     result['permission'] = 'admin'
-    # else:
-    #     result['permission'] = 'user'
     return 'Send Acknowledgement'
+
+@app.route('/sign')
+def sign_page():
+    return render_template('signup.html')
+
+@app.route('/api_signup/', methods=['POST'])
+def signup_check():
+    result = {}
+    request_data = request.json
+    username = request_data['inputUsername']
+    theemail = request_data['inputEmail']
+    password = request_data['inputPassword']
+    # data = obj.insert("login", {"username": username, "password": password})
+    data = db.myway(username, theemail, password)
+    print (data)
+    if not data:
+        return "Error"
+    else:
+        result['username'] = username
+        result['email'] = theemail
+        result['password'] = password
+        return simplejson.dumps(result)
+
+
+
+    return 'Send Acknowledgement'
+
 
 ######################################### Sid's Code
 
@@ -154,24 +169,6 @@ def oauth_callback(provider):
 ################################################ Sid's code ends
 
 
-# @app.route('/signup', methods=['GET', 'POST'])
-# def signup():
-#     # form = RegisterForm()
-#
-#     # if form.validate_on_submit():
-#         # username = form.username.data
-#         # email = form.email.data
-#         # password = form.password.data
-#         # hashed_password = generate_password_hash(form.password.data, method='sha256')
-#         # try:
-#         #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
-#         #     conn.commit()
-#         # except:
-#         #     conn.rollback()
-#
-#         return render_template('child.html') #'<h1>New user has been created!</h1>'
-#
-#     # return render_template('signup.html', form='')
 
 
 @app.route('/getKeylogData/<user_id>')
