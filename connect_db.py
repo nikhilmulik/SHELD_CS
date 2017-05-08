@@ -16,6 +16,7 @@ class ConnectDB:
         config = ConfigParser.ConfigParser()
         current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
         config.read(os.path.join(current_dir, "config.cfg"))
+        # config.read(os.path.join(os.getcwd(), 'config.cfg'))
         self.dbUser = config.get('Database', 'username')
         self.dbPass = config.get('Database', 'password') if config.get('Database', 'password') else os.getenv("DB_PSW")
         self.dbConnectAttempt = config.get('Database', 'connect_attempt')
