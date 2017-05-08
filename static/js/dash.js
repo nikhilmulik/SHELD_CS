@@ -72,6 +72,11 @@ $(document).on('click', '#new_chat', function (e) {
 
       var socket = io.connect( 'http://localhost:5000/' )
       // broadcast a message
+   /* var io = require("socket.io.min");
+
+    socket.join('myyyyyyyyyyyyyroom'); // Do this for both users you want to chat with each other
+    socket.broadcast.to('myyyyyyyyyyyyyroom').emit('message', 'blah');*/
+
       socket.on( 'connect', function() {
 
        /* socket.emit( 'my event', {
@@ -116,7 +121,9 @@ $(document).on('click', '#new_chat', function (e) {
       } )
 
         $(document).ready(function() {
-
+//    var user_data = document.getElementById('user_data').innerHTML;
+    var user_data = JSON.parse(document.getElementById('user_data').innerHTML)
+    console.log('?????????>>>>>>>>>>>>>',user_data);
          if(!readCookie('username')){
                return;
          }
@@ -127,3 +134,18 @@ $(document).on('click', '#new_chat', function (e) {
       function setDashName(){
          $("#uname").text(readCookie('username'));
         }
+
+//function load_user_data(){
+//    var user_data = document.getElementById('user_data').value;
+//    user_data = JSON.parse(user_data)
+//    console.log('>>>>>>>>>>>>>',user_data);
+//}
+
+function parseTuple(t) {
+    var items = t.replace(/^\(|\)$/g, "").split("),(");
+    items.forEach(function(val, index, array) {
+       array[index] = val.split(",").map(Number);
+    });
+    return items;
+}
+
