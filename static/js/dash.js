@@ -132,13 +132,18 @@ $(document).on('click', '#new_chat', function (e) {
            $.ajax({
             type: 'GET',
             url: '/getKeylogData/'+readCookie('u_id'),
-            data: objectData,
+//            data: objectData,
             contentType: "application/json charset=utf-8",
             traditional: true,
             dataType: "json",
             success: function (data) {
                 alert(data);
                // window.location.href = "http://127.0.0.1:5000/dashboard";
+               for (var i = 0; i < data.length; i++) {
+
+                        $("#keylogtb").append("<tr><td>" + data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" + data[i][3] + "</td>"+"</tr>");
+
+               }
             },
             error: function (error) {
                 console.log(error);
