@@ -25,8 +25,8 @@ def cover():
 # @login_required
 def dash(data=None):
     data = eval(request.args['messages'])
-    messages = {'u_id': data[0], 'username': data[1], 'auth_token': data[3], 'login_source': data[4], 'email_id': data[5]}
-    # import pdb; pdb.set_trace()
+    # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
+    messages = str(data[1]+','+data[5])
     return render_template('dashboard/index.html', data=messages)
 
 

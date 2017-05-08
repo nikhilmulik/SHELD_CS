@@ -121,50 +121,42 @@ $(document).on('click', '#new_chat', function (e) {
       } )
 
         $(document).ready(function() {
-//    var user_data = document.getElementById('user_data').innerHTML;
-    var user_data = JSON.parse(document.getElementById('user_data').innerHTML)
-    console.log('?????????>>>>>>>>>>>>>',user_data);
          if(!readCookie('username')){
                return;
          }
          setDashName();
-
-
         });
       function setDashName(){
          $("#uname").text(readCookie('username'));
         }
 
-//function load_user_data(){
-//    var user_data = document.getElementById('user_data').value;
-//    user_data = JSON.parse(user_data)
-//    console.log('>>>>>>>>>>>>>',user_data);
-//}
-
-function parseTuple(t) {
-    var items = t.replace(/^\(|\)$/g, "").split("),(");
-    items.forEach(function(val, index, array) {
-       array[index] = val.split(",").map(Number);
-    });
-    return items;
+function load_user_data(){
+//    var user_data = document.getElementById('user_data').innerHTML;
+    var user_data = document.getElementById('user_data').innerHTML;
+    var username = user_data.split(',')[0];
+    var useremail = user_data.split(',')[1];
+    createCookie('username',username,10);
+    createCookie('useremail',useremail,10);
 }
 
-      function loadKeylogData(){
-           console.log('get Key log');
-           $.ajax({
-            type: 'GET',
-            url: '/getKeylogData/'+readCookie('u_id'),
-            data: objectData,
-            contentType: "application/json charset=utf-8",
-            traditional: true,
-            dataType: "json",
-            success: function (data) {
-                alert(data);
-               // window.location.href = "http://127.0.0.1:5000/dashboard";
-            },
-            error: function (error) {
-                console.log(error);
-//                 $('#errormsg').html('Invalid Credentials!');
-              }
-        });
-      }
+
+
+//      function loadKeylogData(){
+//           console.log('get Key log');
+//           $.ajax({
+//            type: 'GET',
+//            url: '/getKeylogData/'+readCookie('u_id'),
+//            data: objectData,
+//            contentType: "application/json charset=utf-8",
+//            traditional: true,
+//            dataType: "json",
+//            success: function (data) {
+//                alert(data);
+//               // window.location.href = "http://127.0.0.1:5000/dashboard";
+//            },
+//            error: function (error) {
+//                console.log(error);
+////                 $('#errormsg').html('Invalid Credentials!');
+//              }
+//        });
+//      }
