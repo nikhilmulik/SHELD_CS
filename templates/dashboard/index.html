@@ -1,9 +1,7 @@
 {% extends "index.html" %}
 {% block body %}
-
-
 <!-- Header -->
-<div id="top-nav" class="navbar navbar-inverse navbar-static-top">
+<div id="top-nav" class="navbar navbar-inverse navbar-static-top" >
   <div class="container bootstrap snippet">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -60,10 +58,14 @@
        <a href="#"><strong><i class="glyphicon glyphicon-dashboard"></i> My Dashboard</strong></a>
        <hr>
 
-        <div class="container bootstrap snippet keylogTable">
+        <div class=" bootstrap snippet keylogTable">
     <div class="table-responsive">
+        <script type="text/javascript">
+            <!--loadKeylogData();-->
+            load_user_data();
+        </script>
     	<!-- PROJECT TABLE -->
-    	<table class="table colored-header datatable project-list">
+    	<table id="keylogtb" class="table colored-header datatable project-list">
     		<thead>
     			<tr>
     				<th>Time</th>

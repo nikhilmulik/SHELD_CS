@@ -1,26 +1,43 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "index.html" %}
+{% block body %}
+<body style="background-color:#141414;" >
+    <div class="logoShield" style="display: flex; justify-content: center;">
+            <img src="../static/images/shield.png" style="width:58%;height:25%;" align="middle">
 
-{% block title %}
-Sign Up
-{% endblock %}
+    </div>
+    <div class="logoText">
+        <span>SIGN UP</span>
+    </div>
+    <form class="form-signin" id="signup">
+        <!--<h2 class="form-signin-heading">Please sign in</h2>-->
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <!--<label for="inputEmail" class="sr-only">Email address</label>-->
+                <input type="text" id="inputUname" class="form-control" placeholder="Username"  autofocus>
+            </div>
+        </div>
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
-{% endblock %}
+      <div class="row">
+            <div class="col-xs-4 col-xs-offset-4" style="margin-top: 15px;">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required>
+            </div>
+        </div>
 
-{% block content %}
-<div class="container">
+        <!--<label for="inputPassword" class="sr-only">Password</label>-->
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4" style="margin-top: 15px;">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" >
+            </div>
+        </div>
 
-  <form class="form-signin" method="POST" action="/signup">
-    <h2 class="form-signin-heading">Sign Up</h2>
-    {{ form.hidden_tag() }}
-    {{ wtf.form_field(form.username) }}
-    {{ wtf.form_field(form.email) }}
-    {{ wtf.form_field(form.password) }}
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
-  </form>
+    </form>
+    <div class="checkbox col-xs-4 col-xs-offset-4">
+        <div>
+            <button class="btn btn-lg btn-primary"  onclick="signup_post('sign_up')">SignUp</button>
+        </div>
+        <div id="errormsg" style="color:red;" align="left"></div>
 
-</div> <!-- /container -->
+
+    </div>
+
 {% endblock %}

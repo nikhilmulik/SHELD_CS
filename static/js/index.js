@@ -21,6 +21,56 @@ function readCookie(name) {
 	}
 	return null;
 }
+function signup()
+{
+    window.location.href = "http://localhost:5000/sign";
+}
+
+function validateEmail(email)
+{
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+}
+
+function signup_post(val){
+    if(val == 'sign_up') {
+        var inputUname = document.getElementById('inputUname').value;
+        console.log(inputUname);
+        var inputEmail = document.getElementById('inputEmail').value;
+
+        var isitvalid = this.validateEmail(inputEmail);
+        console.log("VALID" + isitvalid);
+        if(isitvalid == false){
+            return $('#errormsg').html('Enter a valid email address!');
+        }
+
+        var inputPassword = document.getElementById('inputPassword').value;
+        var objectData = JSON.stringify({
+            'inputUsername': inputUname,
+            'inputEmail': inputEmail,
+            'inputPassword': inputPassword
+        });
+
+        console.log(objectData);
+        $.ajax({
+            type: 'POST',
+            url: '/api_signup/',
+            data: objectData,
+            contentType: "application/json charset=utf-8",
+            traditional: true,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                window.location.href = "http://localhost:5000/login";
+            },
+            error: function (error) {
+                console.log("HERE ERROR: " + error);
+                 $('#errormsg').html('Username already exist!');
+              }
+        });
+    }
+
+}
 
 
 function login_post(val) {
@@ -43,7 +93,7 @@ function login_post(val) {
             success: function (data) {
                 //create cookie
                 createCookie('username',data.username,10);
-
+                createCookie('u_id',data.u_id,10);
                 window.location.href = "http://localhost:5000/dashboard";
             },
             error: function (error) {

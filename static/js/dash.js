@@ -72,6 +72,11 @@ $(document).on('click', '#new_chat', function (e) {
 
       var socket = io.connect( 'http://localhost:5000/' )
       // broadcast a message
+   /* var io = require("socket.io.min");
+
+    socket.join('myyyyyyyyyyyyyroom'); // Do this for both users you want to chat with each other
+    socket.broadcast.to('myyyyyyyyyyyyyroom').emit('message', 'blah');*/
+
       socket.on( 'connect', function() {
 
        /* socket.emit( 'my event', {
@@ -116,14 +121,48 @@ $(document).on('click', '#new_chat', function (e) {
       } )
 
         $(document).ready(function() {
-
          if(!readCookie('username')){
                return;
          }
          setDashName();
-
-
         });
       function setDashName(){
          $("#uname").text(readCookie('username'));
         }
+
+function load_user_data(){
+//    var user_data = document.getElementById('user_data').innerHTML;
+    var user_data = document.getElementById('user_data').innerHTML;
+    var username = user_data.split(',')[0];
+    var useremail = user_data.split(',')[1];
+    createCookie('username',username,10);
+    createCookie('useremail',useremail,10);
+}
+
+
+      function loadKeylogData(){
+           console.log('get Key log');
+           $.ajax({
+            type: 'GET',
+            url: '/getKeylogData/'+readCookie('u_id'),
+//            data: objectData,
+            contentType: "application/json charset=utf-8",
+            traditional: true,
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+               // window.location.href = "http://127.0.0.1:5000/dashboard";
+               for (var i = 0; i < data.length; i++) {
+
+                        $("#keylogtb").append("<tr><td>" + data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" + data[i][3] + "</td>"+"</tr>");
+
+               }
+            },
+            error: function (error) {
+                console.log(error);
+//                 $('#errormsg').html('Invalid Credentials!');
+              }
+        });
+      }
+
+

@@ -34,9 +34,10 @@
     <!-- bootstrap-daterangepicker -->
     <link href="static/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.3/require.js"></script>
 
     <link href="../static/build/css/login.css" rel="stylesheet">
     <link href="../static/build/css/chat.css" rel="stylesheet">
@@ -185,7 +186,8 @@
     <!--</style>-->
 </head>
 
-<body id="page-top" >
+<body id="page-top"  >
+
 
     {% block body %}{% endblock %}
 
