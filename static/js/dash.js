@@ -72,6 +72,11 @@ $(document).on('click', '#new_chat', function (e) {
 
       var socket = io.connect( 'http://localhost:5000/' )
       // broadcast a message
+   /* var io = require("socket.io.min");
+
+    socket.join('myyyyyyyyyyyyyroom'); // Do this for both users you want to chat with each other
+    socket.broadcast.to('myyyyyyyyyyyyyroom').emit('message', 'blah');*/
+
       socket.on( 'connect', function() {
 
        /* socket.emit( 'my event', {
@@ -116,17 +121,25 @@ $(document).on('click', '#new_chat', function (e) {
       } )
 
         $(document).ready(function() {
-
          if(!readCookie('username')){
                return;
          }
          setDashName();
-
-
         });
       function setDashName(){
          $("#uname").text(readCookie('username'));
         }
+
+function load_user_data(){
+//    var user_data = document.getElementById('user_data').innerHTML;
+    var user_data = document.getElementById('user_data').innerHTML;
+    var username = user_data.split(',')[0];
+    var useremail = user_data.split(',')[1];
+    createCookie('username',username,10);
+    createCookie('useremail',useremail,10);
+}
+
+
       function loadKeylogData(){
            console.log('get Key log');
            $.ajax({
@@ -151,3 +164,5 @@ $(document).on('click', '#new_chat', function (e) {
               }
         });
       }
+
+
