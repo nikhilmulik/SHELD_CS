@@ -238,16 +238,13 @@ def signup():
     # return render_template('signup.html', form='')
 
 
-@app.route('/getKeylogData')
-# @login_required
-def getKeyLogData():
-    # import pdb;
-    # pdb.set_trace();
-    tuples = db.select('keylog', {'u_id': '3'})
+@app.route('/getKeylogData/<user_id>')
+def getKeyLogData(user_id):
+    # import pdb; pdb.set_trace()
+    tuples = db.select('keylog', {'u_id': user_id})
     # res[0][1] = str(res[0][1])
     result = []
     tuplesList = list(tuples)
-
     for tup in tuplesList:
         tupleData = list(tup)
         tupleData[1] = str(tupleData[1])
@@ -256,12 +253,10 @@ def getKeyLogData():
 
     return simplejson.dumps(result)
 
-@app.route('/get_profile')
+@app.route('/get_profile/<user_id>')
 # @login_required
-def getProfile():
-    # import pdb;
-    # pdb.set_trace();
-    tuples = db.select('user_profile', {'u_id': '1'})
+def getProfile(user_id):
+    tuples = db.select('user_profile', {'u_id': user_id})
     # res[0][1] = str(res[0][1])
     result = []
     # tuplesList = list(tuples)
