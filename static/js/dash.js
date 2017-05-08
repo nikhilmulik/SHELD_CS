@@ -140,23 +140,29 @@ function load_user_data(){
 }
 
 
-
-//      function loadKeylogData(){
-//           console.log('get Key log');
-//           $.ajax({
-//            type: 'GET',
-//            url: '/getKeylogData/'+readCookie('u_id'),
+      function loadKeylogData(){
+           console.log('get Key log');
+           $.ajax({
+            type: 'GET',
+            url: '/getKeylogData/'+readCookie('u_id'),
 //            data: objectData,
-//            contentType: "application/json charset=utf-8",
-//            traditional: true,
-//            dataType: "json",
-//            success: function (data) {
-//                alert(data);
-//               // window.location.href = "http://127.0.0.1:5000/dashboard";
-//            },
-//            error: function (error) {
-//                console.log(error);
-////                 $('#errormsg').html('Invalid Credentials!');
-//              }
-//        });
-//      }
+            contentType: "application/json charset=utf-8",
+            traditional: true,
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+               // window.location.href = "http://127.0.0.1:5000/dashboard";
+               for (var i = 0; i < data.length; i++) {
+
+                        $("#keylogtb").append("<tr><td>" + data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" + data[i][3] + "</td>"+"</tr>");
+
+               }
+            },
+            error: function (error) {
+                console.log(error);
+//                 $('#errormsg').html('Invalid Credentials!');
+              }
+        });
+      }
+
+
