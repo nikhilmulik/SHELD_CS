@@ -141,10 +141,12 @@ CREATE TABLE `keylog` (
   `u_id` int(50) DEFAULT NULL,
   `keylog_date_time` datetime DEFAULT NULL,
   `application_name` varchar(255) DEFAULT NULL,
-  `log_text` varchar(45) DEFAULT NULL,
+  `log_text` varchar(1000) DEFAULT NULL,
   `notification_id` varchar(45) DEFAULT NULL,
-  `key_log_id` varchar(45) NOT NULL,
+  `key_log_id` int(100) NOT NULL AUTO_INCREMENT,
+  `unique_identifieri` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`key_log_id`),
+  UNIQUE KEY `key_log_id_UNIQUE` (`key_log_id`),
   KEY `login_keylog_u_id_idx` (`u_id`),
   CONSTRAINT `login_keylog_u_id` FOREIGN KEY (`u_id`) REFERENCES `login` (`u_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -177,7 +179,7 @@ CREATE TABLE `login` (
   UNIQUE KEY `Username_UNIQUE` (`username`),
   UNIQUE KEY `u_id_UNIQUE` (`u_id`),
   KEY `login_FK_idx` (`u_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 PACK_KEYS=0;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 PACK_KEYS=0;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +188,7 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,'shield_user1','123','kjboijh',NULL,'shielduser_1@shield.com'),(2,'shield_user2','123','kjboijh',NULL,'shielduser_2@shield.com'),(3,'support_user1','123','auth1',NULL,'support@shield.com'),(4,'shield_admin','123','auth1',NULL,'admin@shield.com');
+INSERT INTO `login` VALUES (2,'adfsdfsa',NULL,'qweqewe245q4we6q7wew5w7ew57qqw','facebook','adfsfasdf@gmail.com');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,32 +307,6 @@ LOCK TABLES `user_profile` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `wait_list`
---
-
-DROP TABLE IF EXISTS `wait_list`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `wait_list` (
-  `guest_id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(20) DEFAULT NULL,
-  `last_name` varchar(20) DEFAULT NULL,
-  `guest_count` int(11) DEFAULT NULL,
-  PRIMARY KEY (`guest_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `wait_list`
---
-
-LOCK TABLES `wait_list` WRITE;
-/*!40000 ALTER TABLE `wait_list` DISABLE KEYS */;
-INSERT INTO `wait_list` VALUES (2,'mike','jones',4),(3,'mike','jones',4);
-/*!40000 ALTER TABLE `wait_list` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `webcam_capture`
 --
 
@@ -369,4 +345,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-06 21:21:41
+-- Dump completed on 2017-05-08  0:17:14

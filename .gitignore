@@ -1,6 +1,6 @@
-
 *.cfg
-
 *.txt
-
 .idea/
+*
+!*.xml
+.idea/workspace.xml
