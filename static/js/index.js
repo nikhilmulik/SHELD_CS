@@ -79,6 +79,7 @@ function login_post(val) {
             success: function (data) {
                 //create cookie
                 createCookie('username',data.username,10);
+
                 window.location.href = "http://localhost:5000/dashboard";
             },
             error: function (error) {

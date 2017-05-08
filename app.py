@@ -235,7 +235,6 @@ def oauth_callback(provider):
 
 
 
-
 @app.route('/getKeylogData/<user_id>')
 def getKeyLogData(user_id):
     # import pdb; pdb.set_trace()
