@@ -154,30 +154,33 @@ def oauth_callback(provider):
 ################################################ Sid's code ends
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    # if form.validate_on_submit():
-        # username = form.username.data
-        # email = form.email.data
-        # password = form.password.data
-        # hashed_password = generate_password_hash(form.password.data, method='sha256')
-        # try:
-        #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
-        #     conn.commit()
-        # except:
-        #     conn.rollback()
-        return render_template('child.html') #'<h1>New user has been created!</h1>'
-    # return render_template('signup.html', form='')
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     # form = RegisterForm()
+#
+#     # if form.validate_on_submit():
+#         # username = form.username.data
+#         # email = form.email.data
+#         # password = form.password.data
+#         # hashed_password = generate_password_hash(form.password.data, method='sha256')
+#         # try:
+#         #     mycursor.execute("INSERT INTO shield.login (Username, Password) VALUES (%s,%s)", (username, password))
+#         #     conn.commit()
+#         # except:
+#         #     conn.rollback()
+#
+#         return render_template('child.html') #'<h1>New user has been created!</h1>'
+#
+#     # return render_template('signup.html', form='')
 
 
-@app.route('/getKeylogData')
-# @login_required
-def getKeyLogData():
-    tuples = db.select('keylog', {'u_id': '3'})
+@app.route('/getKeylogData/<user_id>')
+def getKeyLogData(user_id):
+    # import pdb; pdb.set_trace()
+    tuples = db.select('keylog', {'u_id': user_id})
     # res[0][1] = str(res[0][1])
     result = []
     tuplesList = list(tuples)
-
     for tup in tuplesList:
         tupleData = list(tup)
         tupleData[1] = str(tupleData[1])
@@ -186,10 +189,12 @@ def getKeyLogData():
 
     return simplejson.dumps(result)
 
-@app.route('/get_profile')
+@app.route('/get_profile/<user_id>')
 # @login_required
-def getProfile():
-    tuples = db.select('user_profile', {'u_id': '1'})
+
+def getProfile(user_id):
+    tuples = db.select('user_profile', {'u_id': user_id})
+
     # res[0][1] = str(res[0][1])
     result = []
     # tuplesList = list(tuples)
