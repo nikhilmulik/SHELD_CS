@@ -24,10 +24,10 @@ def cover():
 @app.route('/dashboard')
 # @login_required
 def dash(data=None):
-    data = eval(request.args['messages'])
-    # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
-    messages = str(data[1]+','+data[5])
-    return render_template('dashboard/index.html', data=messages)
+    # data = eval(request.args['messages'])
+    # # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
+    # messages = str(data[1]+','+data[5])
+    return render_template('dashboard/index.html')
 
 
 def messageRecived():
