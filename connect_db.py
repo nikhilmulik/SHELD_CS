@@ -189,14 +189,14 @@ class ConnectDB:
     def execute_query(self, query):
         # import pdb; pdb.set_trace()
         print query
-        # try:
-        # query = "INSERT INTO `shield`.`login` (`username`,`auth_token`,`login_source`,`email_id`) VALUES ('dunkdude17', 'facebook$1705864569429171',  'facebook', 'dunkdude17@gmail.com');"
-        self.cursor.execute(query)
-        self.conn.commit()
-        result = self.cursor.fetchall()
-        return result
-        # except MySQLdb.Error:
-        #     print 'Error'
+        try:
+            self.cursor.execute(query)
+            self.conn.commit()
+            result = self.cursor.fetchall()
+            return result
+        except MySQLdb.Error:
+            print 'Error: Error while executing Query !'
+
 
 
 
