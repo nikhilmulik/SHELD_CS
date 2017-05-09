@@ -157,16 +157,18 @@ def oauth_callback(provider):
          'email_id': email
     }
     # result = obj.insert(table, data)
-    entry = db.select('login', {'username': username})
+    entry = db.select('login', {'username': fb_details['username']})
     if entry:
         print 'Record Exists: ' + str(entry)
         # return dash(entry)
         return redirect(url_for('dash', messages=entry))
-    # SELECT username from login where username = 'dunkdude17';
-    query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
+    else:
+        # SELECT username from login where username = 'dunkdude17';
+        query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
             "VALUES ('"+ fb_details['username'] +"', '" + fb_details['email_id'] + "', '" + fb_details['auth_token'] + "', '" + fb_details['login_source'] + "');"
-    result = db.execute_query(query)
-    return redirect(url_for('dash', messages=result))
+        db.execute_query(query)
+        result = db.select('login', {'username': fb_details['username']})
+        return redirect(url_for('dash', messages=result))
     # return dash(result)
 
 

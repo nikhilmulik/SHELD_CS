@@ -131,12 +131,14 @@ $(document).on('click', '#new_chat', function (e) {
         }
 
 function load_user_data(){
-   var user_data = document.getElementById('user_data').innerHTML;
-   var user_data = document.getElementById('user_data').innerHTML;
-   var username = user_data.split(',')[0];
-   var useremail = user_data.split(',')[1];
-   createCookie('username',username,10);
-   createCookie('useremail',useremail,10);
+    if (document.getElementById('user_data').innerHTML != "") {
+        var user_data = document.getElementById('user_data').innerHTML;
+        var user_data = document.getElementById('user_data').innerHTML;
+        var username = user_data.split(',')[0];
+        var useremail = user_data.split(',')[1];
+        createCookie('username', username, 10);
+        createCookie('useremail', useremail, 10);
+    };
 }
 
 

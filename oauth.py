@@ -12,6 +12,7 @@ class OAuthSignIn(object):
         config = ConfigParser.ConfigParser()
         current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
         config.read(os.path.join(current_dir, "config.cfg"))
+        # config.read("config.cfg")
         self.provider_name = provider_name
         self.consumer_id = config.get('Facebook','id')
         self.consumer_secret = config.get('Facebook','secret')
