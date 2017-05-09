@@ -2,7 +2,6 @@ import MySQLdb
 import ConfigParser
 import os
 import time
-import mysql.connector
 
 
 
@@ -59,37 +58,37 @@ class ConnectDB:
     #     return cursor
 
     def select(self, table, dictionary=None, fetch_mult = True):
-        try:
-            if dictionary == None and fetch_mult == True:
-                query = "SELECT * FROM %s ;" % table
-                print query
-                self.cursor.execute(query)
-                result = self.cursor.fetchall()
-                return result
-            # global cur_table
-
-            self.cur_table = table
-            # global cur_dbobj
-            # cur_dbobj = db_obj
-
-            # import pdb; pdb.set_trace()
-            dict_fields = []
-            dict_values = []
-            for item in dictionary:
-                dict_fields.append(item)
-                dict_values.append(dictionary[item])
-            query = "SELECT * FROM %s WHERE (%s);" % (table, self.dict_to_where(dictionary))
-            #print query
+        # try:
+        if dictionary == None and fetch_mult == True:
+            query = "SELECT * FROM %s ;" % table
+            print query
             self.cursor.execute(query)
-            #print 'Query: ', query
-            if fetch_mult:
-                result = self.cursor.fetchall()
-            else:
-                result = self.cursor.fetchone()
+            result = self.cursor.fetchall()
             return result
-        except MySQLdb.Error:
-            self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
-            return self.select(table, dictionary, fetch_mult)
+        # global cur_table
+
+        self.cur_table = table
+        # global cur_dbobj
+        # cur_dbobj = db_obj
+
+        # import pdb; pdb.set_trace()
+        dict_fields = []
+        dict_values = []
+        for item in dictionary:
+            dict_fields.append(item)
+            dict_values.append(dictionary[item])
+        query = "SELECT * FROM %s WHERE (%s);" % (table, self.dict_to_where(dictionary))
+        #print query
+        self.cursor.execute(query)
+        #print 'Query: ', query
+        if fetch_mult:
+            result = self.cursor.fetchall()
+        else:
+            result = self.cursor.fetchone()
+        return result
+        # except MySQLdb.Error:
+        #     self.connect(self.dbHost, self.dbUser, self.dbPass, self.dbDB, self.dbConnectAttempt)
+        #     return self.select(table, dictionary, fetch_mult)
 
 
 
@@ -137,19 +136,6 @@ class ConnectDB:
             self.get_field_type()
 
 
-    def myway(self, username, email, password):
-        conn = mysql.connector.connect(user='root', password='password', host='localhost', database='shield')
-        mycursor = conn.cursor()
-        try:
-            mycursor.execute("INSERT INTO shield.login (username, password, email_id) VALUES (%s,%s, %s)", (username, password, email))
-            conn.commit()
-        except:
-            conn.rollback()
-            return False
-
-        return True
-
-
     def insert(self, table, dictionary):
         # import pdb;  pdb.set_trace()
         try:
@@ -190,13 +176,15 @@ class ConnectDB:
     def execute_query(self, query):
         # import pdb; pdb.set_trace()
         print query
+
         try:
             self.cursor.execute(query)
             self.conn.commit()
             result = self.cursor.fetchall()
             return result
         except MySQLdb.Error:
-            print 'Error: Error while executing Query !'
+            self.conn.rollback()
+            return True
 
 
 

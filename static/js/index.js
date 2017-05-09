@@ -35,23 +35,34 @@ function validateEmail(email)
 function signup_post(val){
     if(val == 'sign_up') {
         var inputUname = document.getElementById('inputUname').value;
-        console.log(inputUname);
         var inputEmail = document.getElementById('inputEmail').value;
-
+        var inputPassword = document.getElementById('inputPassword').value;
         var isitvalid = this.validateEmail(inputEmail);
-        console.log("VALID" + isitvalid);
+
+        if(inputUname === '' && inputEmail === '' && inputPassword === ''){
+            return $('#errormsg').html('Missing fields');
+        }
+        if(inputUname === ''){
+            return $('#errormsg').html('Enter a username');
+        }
+        if(inputPassword === ''){
+            return $('#errormsg').html('Enter a password');
+        }
+        if(inputEmail === ' '){
+            return $('#errormsg').html('Enter a email');
+        }
         if(isitvalid == false){
             return $('#errormsg').html('Enter a valid email address!');
         }
 
-        var inputPassword = document.getElementById('inputPassword').value;
+
+
         var objectData = JSON.stringify({
             'inputUsername': inputUname,
             'inputEmail': inputEmail,
             'inputPassword': inputPassword
         });
 
-        console.log(objectData);
         $.ajax({
             type: 'POST',
             url: '/api_signup/',
@@ -64,7 +75,7 @@ function signup_post(val){
                 window.location.href = "http://localhost:5000/login";
             },
             error: function (error) {
-                console.log("HERE ERROR: " + error);
+                console.log(JSON.stringify[error]);
                  $('#errormsg').html('Username already exist!');
               }
         });
@@ -77,6 +88,20 @@ function login_post(val) {
     if(val == 'sign_in') {
         var inputUname = document.getElementById('inputUname').value;
         var inputPassword = document.getElementById('inputPassword').value;
+        console.log(inputPassword);
+
+
+        if(inputUname === '' && inputPassword === ''){
+            return $('#errormsg').html('Missing fields');
+        }
+        if(inputUname === ''){
+            return $('#errormsg').html('Enter username');
+        }
+        if(inputPassword === ''){
+            return $('#errormsg').html('Enter password');
+        }
+
+
         var objectData = JSON.stringify({
             'inputUsername': inputUname,
             'inputPassword': inputPassword
@@ -97,7 +122,7 @@ function login_post(val) {
                 window.location.href = "http://localhost:5000/dashboard";
             },
             error: function (error) {
-                console.log(error);
+                console.log("THIS IS THE ERROR" + error);
                  $('#errormsg').html('Invalid Credentials!');
               }
         });
