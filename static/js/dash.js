@@ -136,8 +136,10 @@ function load_user_data(){
         var user_data = document.getElementById('user_data').innerHTML;
         var username = user_data.split(',')[0];
         var useremail = user_data.split(',')[1];
+        var user_id = user_data.split(',')[2];
         createCookie('username', username, 10);
         createCookie('useremail', useremail, 10);
+        createCookie('u_id', user_id, 10);
     };
 }
 
