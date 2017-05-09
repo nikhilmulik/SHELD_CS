@@ -143,6 +143,13 @@ function load_user_data(){
     };
 }
 
+    function guidGenerator() {
+        var S4 = function() {
+            return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+        };
+        return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    }
+
 
       function loadKeylogData(){
            console.log('get Key log');
@@ -154,11 +161,11 @@ function load_user_data(){
             traditional: true,
             dataType: "json",
             success: function (data) {
-                alert(data);
+//                alert(data);
                // window.location.href = "http://127.0.0.1:5000/dashboard";
                for (var i = 0; i < data.length; i++) {
-
-                        $("#keylogtb").append("<tr><td>" + data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" + data[i][3] + "</td>"+"</tr>");
+                        var divId = guidGenerator();
+                        $("#keylogtb").append("<tr><td>" +   data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" +  "<div  data-toggle='collapse' data-target='#"+ divId+"'>" + "Click" +"</div>"+"<div id='"+divId+"'"+" class='collapse'>"+data[i][3]+"</div>"+"</td>"+"</tr>");
 
                }
             },
