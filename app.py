@@ -5,7 +5,6 @@ from oauth import OAuthSignIn
 import json
 from connect_db import ConnectDB
 import simplejson
-# import mysql.connector
 
 # https://flask-socketio.readthedocs.io/en/latest/
 # https://github.com/socketio/socket.io-client
@@ -24,10 +23,10 @@ def cover():
 @app.route('/dashboard')
 # @login_required
 def dash(data=None):
-    data = eval(request.args['messages'])
-    # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
-    messages = str(data[1]+','+data[5])
-    return render_template('dashboard/index.html', data=messages)
+    # data = eval(request.args['messages'])
+    # # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
+    # messages = str(data[1]+','+data[5])
+    return render_template('dashboard/index.html')
 
 
 def messageRecived():
@@ -102,16 +101,45 @@ def signup_check():
     username = request_data['inputUsername']
     theemail = request_data['inputEmail']
     password = request_data['inputPassword']
-    # data = obj.insert("login", {"username": username, "password": password})
-    data = db.myway(username, theemail, password)
-    print (data)
-    if not data:
-        return "Error"
-    else:
-        result['username'] = username
-        result['email'] = theemail
-        result['password'] = password
-        return simplejson.dumps(result)
+
+
+    query = "INSERT INTO `shield`.`login` (`username`, `password`, `email_id`) " \
+            "VALUES ('" + username + "', '" + password + "', '" + theemail + "');"
+
+    if username.strip(' ') != '' and theemail.strip(' ') != '' and password.strip(' ') != '':
+        data = db.execute_query(query)
+        if data:
+            print("In here")
+            return "Error"
+        else:
+            result['username'] = username
+            result['email'] = theemail
+            result['password'] = password
+            return simplejson.dumps(result)
+
+    # myquery = "INSERT INTO shield.login (username, password, email_id) VALUES (%s,%s, %s)", (username, password, theemail)
+
+    # query= "INSERT INTO `shield`.`login` (`username`, `password`, `email_id`) " \
+    #         "VALUES ('"+ username +"', '" + password + "', '" + theemail + "');"
+
+    # print(query)
+    # data = db.execute_query(query)
+    # print(data)
+
+
+
+
+
+
+    # data = db.myway(username, theemail, password)
+    # print (data)
+    # if not data:
+    #     return "Error"
+    # else:
+    #     result['username'] = username
+    #     result['email'] = theemail
+    #     result['password'] = password
+    #     return simplejson.dumps(result)
 
 
 

@@ -2,7 +2,6 @@ import MySQLdb
 import ConfigParser
 import os
 import time
-import mysql.connector
 
 
 
@@ -136,19 +135,6 @@ class ConnectDB:
             self.get_field_type()
 
 
-    def myway(self, username, email, password):
-        conn = mysql.connector.connect(user='root', password='password', host='localhost', database='shield')
-        mycursor = conn.cursor()
-        try:
-            mycursor.execute("INSERT INTO shield.login (username, password, email_id) VALUES (%s,%s, %s)", (username, password, email))
-            conn.commit()
-        except:
-            conn.rollback()
-            return False
-
-        return True
-
-
     def insert(self, table, dictionary):
         # import pdb;  pdb.set_trace()
         try:
@@ -191,12 +177,15 @@ class ConnectDB:
         print query
         # try:
         # query = "INSERT INTO `shield`.`login` (`username`,`auth_token`,`login_source`,`email_id`) VALUES ('dunkdude17', 'facebook$1705864569429171',  'facebook', 'dunkdude17@gmail.com');"
-        self.cursor.execute(query)
-        self.conn.commit()
-        result = self.cursor.fetchall()
-        return result
-        # except MySQLdb.Error:
-        #     print 'Error'
+
+        try:
+            self.cursor.execute(query)
+            self.conn.commit()
+            result = self.cursor.fetchall()
+            return result
+        except MySQLdb.Error:
+            self.conn.rollback()
+            return True
 
 
 
