@@ -75,7 +75,7 @@ function signup_post(val){
                 window.location.href = "http://localhost:5000/login";
             },
             error: function (error) {
-                console.log("HERE ERROR: ");
+                console.log(JSON.stringify[error]);
                  $('#errormsg').html('Username already exist!');
               }
         });
