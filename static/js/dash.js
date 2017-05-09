@@ -163,7 +163,7 @@ function load_user_data(){
             success: function (data) {
 //                alert(data);
                // window.location.href = "http://127.0.0.1:5000/dashboard";
-               for (var i = 0; i < data.length; i++) {
+               for (var i = data.length -1; i >=0 ; i--) {
                         var divId = guidGenerator();
                         $("#keylogtb").append("<tr><td>" +   data[i][1] + "</td><td>" + "<a href='#'>" + data[i][2] + "</a>" + "</td>"+"<td>" +  "<div  data-toggle='collapse' data-target='#"+ divId+"'>" + "Click" +"</div>"+"<div id='"+divId+"'"+" class='collapse'>"+data[i][3]+"</div>"+"</td>"+"</tr>");
 
