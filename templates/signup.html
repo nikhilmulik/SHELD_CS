@@ -1,6 +1,90 @@
 {% extends "index.html" %}
 {% block body %}
-<body style="background-color:#141414;" >
+<body  >
+
+
+
+
+<!--<div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">-->
+            <!--<div class="panel panel-info">-->
+                <!--<div class="panel-heading">-->
+                    <!--<div class="panel-title">Sign Up</div>-->
+                    <!--&lt;!&ndash;<div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" >Sign In</a></div>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="panel-body" >-->
+                    <!--<form id="signup" class="form-horizontal" role="form">-->
+
+                        <!--<div id="signupalert" style="display:none" class="alert alert-danger">-->
+                            <!--<p>Error:</p>-->
+                            <!--<span></span>-->
+                        <!--</div>-->
+
+
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="email" class="col-md-3 control-label">Email</label>-->
+                            <!--<div class="col-md-9">-->
+                                <!--<input id="inputEmail" type="text" class="form-control" name="email" placeholder="Email Address">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div class="form-group">-->
+                            <!--<label for="firstname" class="col-md-3 control-label">Username</label>-->
+                            <!--<div class="col-md-9">-->
+                                <!--<input id="inputUname"  type="text" class="form-control" name="firstname" placeholder="Username">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label for="lastname" class="col-md-3 control-label">Last Name</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-9">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<input type="text" class="form-control" name="lastname" placeholder="Last Name">&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="password" class="col-md-3 control-label">Password</label>-->
+                            <!--<div class="col-md-9">-->
+                                <!--<input id="inputPassword" type="password" class="form-control" name="passwd" placeholder="Password">-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--&lt;!&ndash;<div class="form-group">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<label for="icode" class="col-md-3 control-label">Invitation Code</label>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-9">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<input type="text" class="form-control" name="icode" placeholder="">&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                        <!--<div class="form-group">-->
+                            <!--&lt;!&ndash; Button &ndash;&gt;-->
+                            <!--<div class="col-md-offset-3 col-md-9">-->
+                                <!--<button id="btn-signup" type="button" class="btn btn-info" onclick="signup_post('sign_up')"><i class="icon-hand-right"></i> &nbsp Sign Up</button>-->
+                                <!--<span style="margin-left:8px;">or</span>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">-->
+
+                            <!--<div class="col-md-offset-3 col-md-9">-->
+                                <!--<button id="btn-fbsignup" type="button" class="btn btn-primary" href="{{ url_for('oauth_authorize', provider='facebook') }}" >-->
+                                    <!--<i class="icon-facebook"></i>   Sign Up with Facebook</button>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+
+
+
+                    <!--</form>-->
+                 <!--</div>-->
+            <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
     <div class="logoShield" style="display: flex; justify-content: center;">
             <img src="../static/images/shield.png" style="width:58%;height:25%;" align="middle">
 
@@ -39,5 +123,7 @@
 
 
     </div>
+
+</body>
 
 {% endblock %}
