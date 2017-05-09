@@ -17,6 +17,7 @@ class ConnectDB:
         config = ConfigParser.ConfigParser()
         current_dir = '\\'.join(os.path.realpath(__file__).split('\\')[:-1])
         config.read(os.path.join(current_dir, "config.cfg"))
+        # config.read(os.path.join(os.getcwd(), 'config.cfg'))
         self.dbUser = config.get('Database', 'username')
         self.dbPass = config.get('Database', 'password') if config.get('Database', 'password') else os.getenv("DB_PSW")
         self.dbConnectAttempt = config.get('Database', 'connect_attempt')
@@ -175,8 +176,6 @@ class ConnectDB:
     def execute_query(self, query):
         # import pdb; pdb.set_trace()
         print query
-        # try:
-        # query = "INSERT INTO `shield`.`login` (`username`,`auth_token`,`login_source`,`email_id`) VALUES ('dunkdude17', 'facebook$1705864569429171',  'facebook', 'dunkdude17@gmail.com');"
 
         try:
             self.cursor.execute(query)
@@ -186,6 +185,7 @@ class ConnectDB:
         except MySQLdb.Error:
             self.conn.rollback()
             return True
+
 
 
 

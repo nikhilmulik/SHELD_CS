@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template, flash, redirect, url_for
-from flask_socketio import SocketIO, emit
+# from flask_socketio import SocketIO, emit
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from oauth import OAuthSignIn
 import json
@@ -12,7 +12,7 @@ import simplejson
 app = Flask(__name__)
 db = ConnectDB()
 global super_var
-socketio = SocketIO(app)
+# socketio = SocketIO(app)
 
 
 @app.route('/')
@@ -23,26 +23,31 @@ def cover():
 @app.route('/dashboard')
 # @login_required
 def dash(data=None):
-    # data = eval(request.args['messages'])
-    # # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
-    # messages = str(data[1]+','+data[5])
-    return render_template('dashboard/index.html')
+    # import pdb; pdb.set_trace()
+    if len(request.args) != 0:
+        data = eval(request.args['messages'])
+        # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
+        messages = str(data[1]+','+data[5])
+        return render_template('dashboard/index.html', data=messages)
+    else:
+        return render_template('dashboard/index.html')
+
 
 
 def messageRecived():
     print('message was received-----!!!')
 
 
-@socketio.on('my event')
-def handle_my_custom_event(json):
-    #print('received my event: ' + str(json))
-
-    socketio.emit('my response', json, callback=messageRecived)
-
-@socketio.on('key_log')
-def dbInsert():
-    #print('received my event: ' + str(json))
-    socketio.emit('key_log_in', {'insert': 'true'}, callback=messageRecived)
+# @socketio.on('my event')
+# def handle_my_custom_event(json):
+#     #print('received my event: ' + str(json))
+#
+#     socketio.emit('my response', json, callback=messageRecived)
+#
+# @socketio.on('key_log')
+# def dbInsert():
+#     #print('received my event: ' + str(json))
+#     socketio.emit('key_log_in', {'insert': 'true'}, callback=messageRecived)
 
 
 # @app.route('/api/post_klogs/<uid>', methods=['POST'])
@@ -180,16 +185,18 @@ def oauth_callback(provider):
          'email_id': email
     }
     # result = obj.insert(table, data)
-    entry = db.select('login', {'username': username})
+    entry = db.select('login', {'username': fb_details['username']})
     if entry:
         print 'Record Exists: ' + str(entry)
         # return dash(entry)
         return redirect(url_for('dash', messages=entry))
-    # SELECT username from login where username = 'dunkdude17';
-    query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
+    else:
+        # SELECT username from login where username = 'dunkdude17';
+        query = "INSERT INTO `shield`.`login` (`username`, `email_id`, `auth_token`, `login_source`) " \
             "VALUES ('"+ fb_details['username'] +"', '" + fb_details['email_id'] + "', '" + fb_details['auth_token'] + "', '" + fb_details['login_source'] + "');"
-    result = db.execute_query(query)
-    return redirect(url_for('dash', messages=result))
+        db.execute_query(query)
+        result = db.select('login', {'username': fb_details['username']})
+        return redirect(url_for('dash', messages=result))
     # return dash(result)
 
 
@@ -244,7 +251,7 @@ def logout():
 # print "hash value: %032x" % hash
 
 
-
 if __name__ == "__main__":
     app.debug = True
-    socketio.run(app)
+    app.run()
+    # socketio.run(app)
