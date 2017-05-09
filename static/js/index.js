@@ -152,6 +152,13 @@ function fx(o) {
   });
 }
 
+function logout() {
+    delete_cookie('u_id');
+    delete_cookie('username');
+    delete_cookie('useremail');
+    window.location = "http://localhost:5000/login";
+}
 
-
-
+function delete_cookie( name ) {
+  document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
