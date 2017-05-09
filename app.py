@@ -27,7 +27,7 @@ def dash(data=None):
     if len(request.args) != 0:
         data = eval(request.args['messages'])
         # messages = {"username": data[1], "auth_token": data[3], "login_source": data[4], "email_id": data[5]}
-        messages = str(data[1]+','+data[5])
+        messages = str(data[1]+','+data[5]+','+str(data[0]))
         return render_template('dashboard/index.html', data=messages)
     else:
         return render_template('dashboard/index.html')
